@@ -1,0 +1,17 @@
+{
+  "simulation1": {
+    "questionProcessing": {
+      "should_execute": true,
+      "dataset": {
+        "name": "WikiPassageQA",
+        "path": "datasets/WikiPassageQA/"
+      },
+      "techniqueUsed": "tecnique1"
+    },
+    "informationRetrieval": {
+      "should_execute": false,
+      "dataset": "WikiPassageQA",
+      "datasetPath": "datasets/WikiPassageQA/"
+    }
+  }
+}

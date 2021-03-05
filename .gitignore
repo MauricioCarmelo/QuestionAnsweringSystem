@@ -1,0 +1,11 @@
+
+__pycache__/
+
+# user specifics
+.idea/
+
+# virtualenv
+venv/
+
+# log folder
+log/
