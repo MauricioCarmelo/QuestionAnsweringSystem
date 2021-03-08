@@ -6,7 +6,7 @@
         "name": "WikiPassageQA",
         "path": "datasets/WikiPassageQA/"
       },
-      "techniqueUsed": "tecnique1"
+      "parsingTechnique": "simpleSplit"
     },
     "informationRetrieval": {
       "should_execute": false,

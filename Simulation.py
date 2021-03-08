@@ -25,7 +25,7 @@ class Simulation:
         try:
             if self.should_execute_question_processing:
                 logging.info("Running question processing daemon")
-                self.question_processing_daemon.run()
+                self.question_processing_daemon.execute()
         except Exception as e:
             logging.error(str(e))
 
