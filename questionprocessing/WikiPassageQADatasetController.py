@@ -15,7 +15,10 @@ class WikiPassageQADatasetController(DatasetController):
     def get_question_text_parameter(self):
         return 'Question'
 
-    def load_all_questions(self, questions = deque()):
+    def get_question_id_parameter(self):
+        return 'QID'
+
+    def load_all_questions(self, questions=deque()):
         try:
             path = self.question_processing_settings['dataset']['path']
             data = pd.read_csv(path + 'dev.tsv', sep='\t')
@@ -26,23 +29,16 @@ class WikiPassageQADatasetController(DatasetController):
 
             for index, row in data.iterrows():
                 # creates an object to type Question
-                question = Question(self.question_metadata_parameters)
+                question = Question(self.question_metadata_parameters, self.get_question_id_parameter(),
+                                    self.get_question_text_parameter())
                 # Add all metadata values of the question in the question object
                 for parameter in self.question_metadata_parameters:
-
                     value = row[parameter]
-                    if parameter == self.question_text_parameter:
-                        question.set_text(value)
-                    else:
-                        question.insert_metadata_value(parameter, value)
+                    question.insert_metadata_value(parameter, value)
 
-                questions.appendleft(question)
+                questions.append(question)
 
-            # stores a reference of the queue in an attribute of DatasetController
-            self.questions = questions
-            if len(questions) > 0:
-                return True
-            return False
+            return questions
         except Exception as e:
             logging.error(str(e))
             return False
