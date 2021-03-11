@@ -6,8 +6,6 @@ from questionprocessing.Question import Question
 
 
 class WikiPassageQADatasetController(DatasetController):
-    # questions objects are indexed in the dictionary by the identification parameter
-    questions = deque()
 
     def get_question_metadata_parameters(self):
         return ['QID', 'Question', 'DocumentID', 'DocumentName', 'RelevantPassages']
@@ -19,6 +17,10 @@ class WikiPassageQADatasetController(DatasetController):
         return 'QID'
 
     def load_all_questions(self, questions=deque()):
+        if self.questions is None:
+            # questions objects are indexed in the dictionary by the identification parameter
+            questions = deque()
+
         try:
             path = self.question_processing_settings['dataset']['path']
             data = pd.read_csv(path + 'dev.tsv', sep='\t')
@@ -35,7 +37,6 @@ class WikiPassageQADatasetController(DatasetController):
                 for parameter in self.question_metadata_parameters:
                     value = row[parameter]
                     question.insert_metadata_value(parameter, value)
-
                 questions.append(question)
 
             return questions
