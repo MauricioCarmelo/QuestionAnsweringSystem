@@ -4,12 +4,10 @@ import logging
 
 
 class QuestionProcessingDaemon:
-    settings = {}
-    dataset_controller = None
-    question_parser = None
-
     def __init__(self, question_processing_settings):
         self.settings = question_processing_settings
+        self.dataset_controller = None
+        self.question_parser = None
 
     def __build_dataset_controller(self):
         try:

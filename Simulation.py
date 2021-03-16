@@ -3,14 +3,11 @@ import logging
 
 
 class Simulation:
-    question_processing_daemon = None
-    simulation_settings = None
-
-    should_execute_question_processing = False
-    should_execute_information_retrieval = False
-
     def __init__(self, simulation_settings):
         self.simulation_settings = simulation_settings
+        self.question_processing_daemon = None
+        self.should_execute_question_processing = False
+        self.should_execute_information_retrieval = False
 
         # check in the configuration file which steps should be executed
         if ("questionProcessing" in self.simulation_settings) and (self.simulation_settings["questionProcessing"]["should_execute"]):

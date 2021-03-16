@@ -4,8 +4,6 @@ import nltk
 
 
 class QuestionProcessingParser:
-    question_processing_settings = None
-
     def __init__(self, settings):
         self.question_processing_settings = settings
 
