@@ -1,8 +1,8 @@
-from questionprocessing.DatasetController import DatasetController
+from src.questionprocessing.DatasetController import DatasetController
+from src.questionprocessing.Question import Question
 import pandas as pd
 import logging
 from collections import deque
-from questionprocessing.Question import Question
 
 
 class WikiPassageQADatasetController(DatasetController):

@@ -1,5 +1,5 @@
-from questionprocessing.WikiPassageQADatasetController import WikiPassageQADatasetController
-from questionprocessing.QuestionProcessingParser import QuestionProcessingParser
+from src.questionprocessing.WikiPassageQADatasetController import WikiPassageQADatasetController
+from src.questionprocessing.QuestionProcessingParser import QuestionProcessingParser
 import logging
 
 
@@ -31,6 +31,10 @@ class QuestionProcessingDaemon:
                 # apply parsing technique to all questions
                 for question in self.dataset_controller.get_questions():
                     self.question_parser.parse_question(question)
+
+                # lista de técnicas a serem aplicadas
+
+
             else:
                 logging.info('No questions were read from the dataset')
         except Exception as e:

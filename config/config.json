@@ -9,7 +9,7 @@
       "parsingTechnique": "simpleSplit"
     },
     "informationRetrieval": {
-      "should_execute": false,
+      "should_execute": true,
       "dataset": "WikiPassageQA",
       "datasetPath": "datasets/WikiPassageQA/"
     }
