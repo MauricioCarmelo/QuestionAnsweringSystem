@@ -21,8 +21,8 @@
             {
               "name": "WikiPassageQADev",
               "input_fields": {
-                "dataset_question_text": "",
-                "dataset_question_id": ""
+                "dataset_question_text": "Question",
+                "dataset_question_id": "QID"
               },
               "evaluation_fields": {}
             },
@@ -44,8 +44,8 @@
             {
               "name": "WikiPassageQADev",
               "input_fields": {
-                "dataset_question_id": "",
-                "query": ""
+                "dataset_question_id": "QID",
+                "query": "result_task0"
               },
               "evaluation_fields": {}
             },

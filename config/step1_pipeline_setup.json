@@ -1,1 +1,28 @@
-{}
+{
+  "datasets": [
+    {
+      "reader_type": "WikiPassageQA",
+      "name": "WikiPassageQADev",
+      "path": "datasets/WikiPassageQA/dev.tsv"
+    },
+    {
+      "reader_type": "WikiPassageQA",
+      "name": "WikiPassageQATest",
+      "path": "datasets/WikiPassageQA/test.tsv"
+    }
+  ],
+  "pipeline":
+    {
+      "tasks": [
+        {
+          "name": "generate_query",
+          "task": "SimpleSplit",
+          "datasets": ["WikiPassageQADev", "WikiPassageQATest"]
+        },
+        {
+          "name": "search_document",
+          "task": "DeepSearch",
+          "datasets": ["WikiPassageQADev", "WikiPassageQATest"]
+        },
+    }
+}
