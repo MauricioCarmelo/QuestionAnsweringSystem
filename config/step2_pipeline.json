@@ -1,0 +1,64 @@
+{
+  "datasets": [
+    {
+      "reader_type": "WikiPassageQA",
+      "name": "WikiPassageQADev",
+      "path": "datasets/WikiPassageQA/dev.tsv"
+    },
+    {
+      "reader_type": "WikiPassageQA",
+      "name": "WikiPassageQATest",
+      "path": "datasets/WikiPassageQA/dev.tsv"
+    }
+  ],
+  "pipeline":
+    {
+      "tasks": [
+        {
+          "name": "generate_query",
+          "task": "SimpleSplit",
+          "datasets": [
+            {
+              "name": "WikiPassageQADev",
+              "input_fields": {
+                "dataset_question_text": "",
+                "dataset_question_id": ""
+              },
+              "evaluation_fields": {}
+            },
+            {
+              "name": "WikiPassageQATest",
+              "input_fields": {
+                "dataset_question_text": "",
+                "dataset_question_id": ""
+              },
+              "evaluation_fields": {}
+            }
+          ],
+          "result": "result_task0"
+        },
+        {
+          "name": "search_document",
+          "task": "DeepSearch",
+          "datasets": [
+            {
+              "name": "WikiPassageQADev",
+              "input_fields": {
+                "dataset_question_id": "",
+                "query": ""
+              },
+              "evaluation_fields": {}
+            },
+            {
+              "name": "WikiPassageQATest",
+              "input_fields": {
+                "dataset_question_id": "",
+                "query": ""
+              },
+              "evaluation_fields": {}
+            }
+          ]
+        }
+      ]
+    }
+}
