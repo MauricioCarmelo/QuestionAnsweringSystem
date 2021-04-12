@@ -8,7 +8,7 @@
     {
       "reader_type": "WikiPassageQA",
       "name": "WikiPassageQATest",
-      "path": "datasets/WikiPassageQA/dev.tsv"
+      "path": "datasets/WikiPassageQA/test.tsv"
     }
   ],
   "pipeline":
