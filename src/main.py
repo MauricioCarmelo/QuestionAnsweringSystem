@@ -1,7 +1,6 @@
 from src.Simulation import Simulation
 import logging
 import json
-from DatasetWikiPassageQAReader import *
 
 logging.basicConfig(level=logging.DEBUG, filename='./log/my_logs.log')
 
