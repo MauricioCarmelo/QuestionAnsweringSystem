@@ -1,0 +1,2 @@
+class ResourceEntry:
+    pass
