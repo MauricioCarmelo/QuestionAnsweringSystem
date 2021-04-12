@@ -34,7 +34,7 @@ class Simulation:
             logging.error(str(e))
 
     def cycles_generator(self, dataset_settings):
-        """ Return the cyclos generetor based in the dataset_settings. """
+        """ Return the cycles generator based in the dataset_settings. """
         if "evaluation" in dataset_settings and "type" in dataset_settings["evaluation"]:
             evaluation_settings = dataset_settings["evaluation"]
             evaluation_type = dataset_settings["evaluation"]["type"]
@@ -47,6 +47,8 @@ class Simulation:
                         return self.generator_shuffle_split(evaluation_settings)
                     else:
                         return self.generator_kfold(evaluation_settings)
+            else:
+                return self.generator_all_test()
         else:
             return self.generator_all_test()
 
