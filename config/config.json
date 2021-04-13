@@ -15,5 +15,15 @@
         "random_state": 0
       }
     }
+  },
+
+  "pipeline": {
+    "AnswerTypeClassification": {
+      "technique": {
+        "name": "answer-type-simple-rule-based",
+        "parameter_1": 0
+      },
+      "datasets_ignore": ["WikiPassageQA"]
+    }
   }
 }

@@ -14,7 +14,7 @@ class DatasetWikiPassageQAReader(DatasetReader):
             # df = pd.DataFrame(columns=QUESTION_COLUMNS.keys())
             questions = []
             # Load train file
-            raw_df = pd.read_csv("datasets/WikiPassageQA/train.tsv", sep='\t')
+            raw_df = pd.read_csv("../datasets/WikiPassageQA/train.tsv", sep='\t')
             for index, row in raw_df.iterrows():
                 row = {"id": row["QID"], "question": row["Question"],
                        "answers": [{"documents": [{"id": row["DocumentID"], "name": row["DocumentName"]}],
@@ -25,7 +25,7 @@ class DatasetWikiPassageQAReader(DatasetReader):
                 questions.append(row)
 
             # Load dev file
-            raw_df = pd.read_csv("datasets/WikiPassageQA/dev.tsv", sep='\t')
+            raw_df = pd.read_csv("../datasets/WikiPassageQA/dev.tsv", sep='\t')
             for index, row in raw_df.iterrows():
                 row = {"id": row["QID"], "question": row["Question"],
                        "answers": [{"documents": [{"id": row["DocumentID"], "name": row["DocumentName"]}],
@@ -36,7 +36,7 @@ class DatasetWikiPassageQAReader(DatasetReader):
                 questions.append(row)
 
             # Load test file
-            raw_df = pd.read_csv("datasets/WikiPassageQA/test.tsv", sep='\t')
+            raw_df = pd.read_csv("../datasets/WikiPassageQA/test.tsv", sep='\t')
             for index, row in raw_df.iterrows():
                 row = {"id": row["QID"], "question": row["Question"],
                        "answers": [{"documents": [{"id": row["DocumentID"], "name": row["DocumentName"]}],

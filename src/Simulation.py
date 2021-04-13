@@ -7,31 +7,52 @@ class Simulation:
 
         self.report = []
         self.questions = None
-        self.tasks = None
 
     def run(self):
-        try:
+ #       try:  # ToDo: include the TRY and logs here
 
-            # For each dataset in config file
-            for dataset_key in self.simulation_settings["datasets"]:
-                print(dataset_key)
-                # Load dataset
-                dataset_settings = self.simulation_settings["datasets"][dataset_key]
-                dataset = load_dataset(dataset_key)
-                self.questions = dataset.load_entries()
-                generator = self.cycles_generator(dataset_settings)
+        # For each dataset in config file
+        for dataset_key in self.simulation_settings["datasets"]:
+            print(dataset_key)
+            # Load dataset
+            dataset_settings = self.simulation_settings["datasets"][dataset_key]
+            dataset = load_dataset(dataset_key)
+            self.questions = dataset.load_entries()
+            generator = self.cycles_generator(dataset_settings)
 
-                # For each cycle
-                cycle = 0
-                for train_questions, dev_questions, test_questions in generator:
-                    print(f"    Cycle {cycle}")
-                    for task in self.tasks:
-                        # Todo: provide other types of resources for the task.execute.
-                        report = task.execute(train_questions, dev_questions, test_questions)
-                        self.report.append(report)
+            # For each cycle
+            cycle = 0
+            for train_questions, dev_questions, test_questions in generator:
+                print(f"    Cycle {cycle}")
+                for task_key in self.simulation_settings["pipeline"]:
+                    task_settings = self.simulation_settings["pipeline"][task_key]
 
-        except Exception as e:
-            logging.error(str(e))
+                    if "datasets_ignore" in task_settings and dataset_key in task_settings["datasets_ignore"]:
+                        print(f"        Dataset {dataset_key} ignored by the task {task_key}.")
+                        continue
+
+                    task = load_task(task_key)
+
+                    if "technique" not in task_settings or "name" not in task_settings["technique"]:
+                        print(f"Warning: Task {task_key} ignored once the technique was not configured.")
+                        continue
+                    technique_settings = task_settings["technique"]
+
+                    task.technique = load_technique(technique_settings["name"])
+                    task.technique.settings = technique_settings
+
+                    # Todo: provide other types of resources for the task.execute.
+                    _report = task.execute(train_questions, dev_questions, test_questions)
+                    self.report.append(_report)
+
+                    # ToDo: save the _report in a file
+
+                    cycle += 1
+        # ToDo: save the final self.report in a file
+        self.present_report()
+
+ #       except Exception as e:
+ #           logging.error(str(e))
 
     def cycles_generator(self, dataset_settings):
         """ Return the cycles generator based in the dataset_settings. """
@@ -104,6 +125,9 @@ class Simulation:
         """ It is a generator with one cycles where all questions are in the test set. """
         yield [], [], self.questions
 
+    def present_report(self):
+        print(self.report)
+
 
 def load_dataset(dataset_key):
     """ Load a dataset instance according to the dataset_key parameter.
@@ -119,3 +143,19 @@ def load_dataset(dataset_key):
     elif dataset_key == "QAChave":
         from src.datasetreader.DatasetReaderQAChave import DatasetReaderQAChave
         return DatasetReaderQAChave()
+
+
+def load_task(task_key):
+    """ Load a task instance according to the task_key parameter.
+            :return: Task."""
+    if task_key == "AnswerTypeClassification":
+        from src.tasks.AnswerTypeClassification import AnswerTypeClassification
+        return AnswerTypeClassification()
+
+
+def load_technique(technique_key):
+    """ Load a technique instance according to the technique_key parameter.
+                :return: Technique."""
+    if technique_key == "answer-type-simple-rule-based":
+        from src.techniques.AnswerTypeSimpleRuleBased import AnswerTypeSimpleRuleBased
+        return AnswerTypeSimpleRuleBased()

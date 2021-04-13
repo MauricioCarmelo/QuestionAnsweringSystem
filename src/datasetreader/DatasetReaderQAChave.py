@@ -12,7 +12,7 @@ class DatasetReaderQAChave(DatasetReader):
     def load_entries(self):
 
         try:
-            tree = ET.parse("dataset/qa-chave/questions.xml")
+            tree = ET.parse("../datasets/qa-chave/questions.xml")
             root = tree.getroot()
 
             questions = []
@@ -32,7 +32,7 @@ class DatasetReaderQAChave(DatasetReader):
                 answers = []
                 for resposta in pergunta.findall("resposta"):
                     answer = {}
-                    answer["answer"] = resposta.find('texto').text
+                    answer["answer"] = resposta.text
                     if "n" in resposta.attrib:
                         answer["id"] = resposta.attrib["n"]
                     if "docid" in resposta.attrib:
