@@ -1,17 +1,29 @@
 {
-  "simulation1": {
-    "questionProcessing": {
-      "should_execute": true,
-      "dataset": {
-        "name": "WikiPassageQA",
-        "path": "datasets/WikiPassageQA/"
-      },
-      "parsingTechnique": "simpleSplit"
+  "datasets": {
+    "WikiPassageQA": {
+      "evaluation": {
+        "type": "fixed-split"
+      }
     },
-    "informationRetrieval": {
-      "should_execute": true,
-      "dataset": "WikiPassageQA",
-      "datasetPath": "datasets/WikiPassageQA/"
+
+    "QAChave": {
+      "evaluation": {
+        "type": "cross-validation",
+        "folds": 10,
+        "folds-splitter": "ShuffleSplit",
+        "test_size": 0.3,
+        "random_state": 0
+      }
+    }
+  },
+
+  "pipeline": {
+    "AnswerTypeClassification": {
+      "technique": {
+        "name": "answer-type-simple-rule-based",
+        "parameter_1": 0
+      },
+      "datasets_ignore": ["WikiPassageQA"]
     }
   }
 }

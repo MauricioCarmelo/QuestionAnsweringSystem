@@ -5,29 +5,46 @@ import pandas as pd
 
 
 class DatasetReaderQAChave(DatasetReader):
+
+    def __init__(self):
+        super(DatasetReaderQAChave, self).__init__(name="QAChave")
+
     def load_entries(self):
-        fields = [x for x in self.fields_to_read]
-        dataframe = pd.DataFrame(columns=fields)
 
         try:
-            tree = ET.parse(self.path)
+            tree = ET.parse("../datasets/qa-chave/questions.xml")
             root = tree.getroot()
+
+            questions = []
 
             for pergunta in root:
                 # Create an empty entry
-                entry = {x: '' for x in self.fields_to_read}
-
                 # Read expected fields from dataset
-                for field in fields:
-                    if field == 'texto':
-                        entry[field] = pergunta.find('texto').text
-                    else:
-                        entry[field] = pergunta.get(field)
+                question = {}
+                question["question"] = pergunta.find('texto').text
 
-                # Insert value in the dataframe
-                dataframe = dataframe.append(entry, ignore_index=True, verify_integrity=False, sort=None)
+                if "id_org" in pergunta.attrib:
+                    question["id"] = pergunta.attrib["id_org"]
 
-            return dataframe
+                if "tipo" in pergunta.attrib:
+                    question["answer_type"] = pergunta.attrib["tipo"]
+
+                answers = []
+                for resposta in pergunta.findall("resposta"):
+                    answer = {}
+                    answer["answer"] = resposta.text
+                    if "n" in resposta.attrib:
+                        answer["id"] = resposta.attrib["n"]
+                    if "docid" in resposta.attrib:
+                        answer["documents"] = [{"id": resposta.attrib["docid"]}]
+                    answers.append(answer)
+                question["answers"] = answers
+
+                # In this case, question["pre_evaluation_group"] is empty once this dataset does not pre-split the data.
+
+                questions.append(question)
+
+            return questions
 
         except Exception as e:
             logging.error(str(e))
