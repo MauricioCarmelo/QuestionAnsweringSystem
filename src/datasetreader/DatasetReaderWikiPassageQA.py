@@ -3,7 +3,7 @@ import logging
 import pandas as pd
 
 
-class DatasetWikiPassageQAReader(DatasetReader):
+class DatasetReaderWikiPassageQA(DatasetReader):
     def load_entries(self):
         fields = [x for x in self.fields_to_read]
         try:
