@@ -11,7 +11,7 @@ class Settings:
     def get_instance(cls):
         if cls._instance is None:
             cls._instance = cls.__new__(cls)
-            with open("./config/setp2_pipeline.json") as json_data_file:
+            with open("./config/step2_pipeline.json") as json_data_file:
                 cls._configuration_file = json.load(json_data_file)
 
         return cls._instance
@@ -22,8 +22,13 @@ class Settings:
     def get_used_datasets(self):
         return None
 
-    def get_dataset_path(self, dataset_name):
+    @staticmethod
+    def get_dataset_path(dataset_name):
         return ''
 
-    def get_all_input_fields(self, dataset_name):
+    @staticmethod
+    def get_field_mapping(dataset_name):
+        return {}
+
+    def get_dataset_input_fields(self, dataset_name):
         return None
