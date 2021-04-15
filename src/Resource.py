@@ -13,7 +13,13 @@ class Resource:
         self.field_mapping = Settings.get_instance().get_field_mapping(dataset_name)
         self.resource_entries = []
 
-    def get_field_key_from_value(self, v):
+    def get_resource_entries(self):
+        return self.resource_entries
+
+    def get_dataset_reader_type(self):
+        return self.dataset_reader_type
+
+    def __field_key_from_value(self, v):
         for key, value in self.field_mapping.items():
             if v == value:
                 return key
@@ -58,13 +64,14 @@ class Resource:
             entries_from_dataset = dataset_reader.load_entries()
 
             if entries_from_dataset is not None:
-                # Creates a resource entry.
-                resource_entry = ResourceEntry(self.field_mapping.keys())
                 # For each entry that was read from the dataset.
                 for index, row in entries_from_dataset.iterrows():
+                    # Creates a resource entry.
+                    resource_entry = ResourceEntry(self.field_mapping.keys())
+
                     for field in entries_from_dataset.columns.values:
                         # Add the value of the field in the newly created object.
-                        resource_entry.add_mapped_value(self.get_field_key_from_value(field), row[field])
+                        resource_entry.add_mapped_value(self.__field_key_from_value(field), row[field])
 
                     self.resource_entries.append(resource_entry)
             else:

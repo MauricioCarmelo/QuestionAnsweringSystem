@@ -1,4 +1,6 @@
+from src.datasetreader.ImplementedDatasetReaders import ImplementedDatasetReaders
 import json
+
 
 class Settings:
     _instance = None
@@ -19,16 +21,50 @@ class Settings:
     def is_valid(self):
         return True
 
-    def get_used_datasets(self):
-        return None
-
     @staticmethod
     def get_dataset_path(dataset_name):
-        return ''
+        return './datasets/WikiPassageQA/dev.tsv'
+        #return ''
 
     @staticmethod
     def get_field_mapping(dataset_name):
-        return {}
+        return {"dataset_question_text": "Question",
+                "dataset_question_id": "QID",
+                "query": None}
 
-    def get_dataset_input_fields(self, dataset_name):
+    @staticmethod
+    def get_dataset_input_fields(dataset_name):
         return None
+
+    @staticmethod
+    def get_expected_datasets(task_id):
+        """
+        Returns all datasets that are configured to be parsed by the task.
+        :return: List with all dataset names.
+        """
+        if task_id == 0:
+            return ['WikiPassageQADev', 'WikiPassageQATest']
+        return None
+
+    @staticmethod
+    def get_dataset_reader_type(dataset_name):
+        reader_name = 'WikiPassageQA' # search this information in the config file
+
+        if reader_name == 'WikiPassageQA':
+            return ImplementedDatasetReaders.DatasetWikiPassageQA
+        elif reader_name == 'QAChave':
+            return ImplementedDatasetReaders.DatasetQAChave
+        return None
+
+    @staticmethod
+    def get_mapped_fields(task_id):
+        """
+        Get all field names where the task result is supposed to be mapped.
+        :return: List with all field names.
+        """
+        task_result_name = 'result_task' + str(task_id)
+
+        # this is a test
+        if task_result_name == 'result_task0':
+            return ['query']
+        return []
