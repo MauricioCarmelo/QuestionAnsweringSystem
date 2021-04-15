@@ -3,7 +3,6 @@ from src.tasks.TaskSimpleSplit import TaskSimpleSplit
 from src.Pipeline import Pipeline
 import logging
 import json
-
 from Resource import Resource
 from src.datasetreader.ImplementedDatasetReaders import ImplementedDatasetReaders
 

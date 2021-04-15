@@ -13,7 +13,13 @@ class Resource:
         self.field_mapping = Settings.get_instance().get_field_mapping(dataset_name)
         self.resource_entries = []
 
-    def get_field_key_from_value(self, v):
+    def get_resource_entries(self):
+        return self.resource_entries
+
+    def get_dataset_reader_type(self):
+        return self.dataset_reader_type
+
+    def __field_key_from_value(self, v):
         for key, value in self.field_mapping.items():
             if v == value:
                 return key

@@ -37,9 +37,10 @@ fields should be read from the dataset.
 <details>
 <summary>Running tasks in the pipeline</summary>
 
-* For each task:
-  * Load the task configuration using `Settings`
-  * Create a Task instance
+* For each task instance:
+  * Load the task configuration using `Settings`. It is necessary to know:
+      * All fields that the task result is supposed to be mapped
+        in the `ResourceEntry` object.
   * For each `Resource` related to every dataset configured to run for the Task:
     * For each `ResourceEntry` within `Resource`:
         * Validate if all input fields are valid in the attribute `field_mapping` 
