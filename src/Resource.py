@@ -58,13 +58,14 @@ class Resource:
             entries_from_dataset = dataset_reader.load_entries()
 
             if entries_from_dataset is not None:
-                # Creates a resource entry.
-                resource_entry = ResourceEntry(self.field_mapping.keys())
                 # For each entry that was read from the dataset.
                 for index, row in entries_from_dataset.iterrows():
+                    # Creates a resource entry.
+                    resource_entry = ResourceEntry(self.field_mapping.keys())
+
                     for field in entries_from_dataset.columns.values:
                         # Add the value of the field in the newly created object.
-                        resource_entry.add_mapped_value(self.get_field_key_from_value(field), row[field])
+                        resource_entry.add_mapped_value(self.__field_key_from_value(field), row[field])
 
                     self.resource_entries.append(resource_entry)
             else:
