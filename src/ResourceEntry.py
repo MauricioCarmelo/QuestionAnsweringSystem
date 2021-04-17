@@ -16,3 +16,7 @@ class ResourceEntry:
 
     def add_mapped_value(self, field, value):
         self.field_value_mapping[field] = value
+
+    def append_dictionary_values(self, d):
+        for key, value in d.items():
+            self.add_mapped_value(key, value)

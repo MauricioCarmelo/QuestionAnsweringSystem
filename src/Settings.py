@@ -23,14 +23,16 @@ class Settings:
 
     @staticmethod
     def get_dataset_path(dataset_name):
-        return './datasets/WikiPassageQA/dev.tsv'
-        #return ''
+        if dataset_name == 'WikiPassageQA':
+            return './datasets/WikiPassageQA/'
+        elif dataset_name == 'QAChave':
+            return './datasets/qa-chave'
+        else:
+            return ''
 
     @staticmethod
     def get_field_mapping(dataset_name):
-        return {"dataset_question_text": "Question",
-                "dataset_question_id": "QID",
-                "query": None}
+        return {'query': 'result_task0'}
 
     @staticmethod
     def get_dataset_input_fields(dataset_name):
@@ -43,16 +45,14 @@ class Settings:
         :return: List with all dataset names.
         """
         if task_id == 0:
-            return ['WikiPassageQADev', 'WikiPassageQATest']
+            return ['WikiPassageQA', 'QAChave']
         return None
 
     @staticmethod
     def get_dataset_reader_type(dataset_name):
-        reader_name = 'WikiPassageQA' # search this information in the config file
-
-        if reader_name == 'WikiPassageQA':
+        if dataset_name == 'WikiPassageQA':
             return ImplementedDatasetReaders.DatasetWikiPassageQA
-        elif reader_name == 'QAChave':
+        elif dataset_name == 'QAChave':
             return ImplementedDatasetReaders.DatasetQAChave
         return None
 

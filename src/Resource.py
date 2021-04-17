@@ -42,13 +42,12 @@ class Resource:
         :return: dataset_reader (DatasetReader).
         """
         dataset_path = Settings.get_instance().get_dataset_path(self.dataset_name)
-        dataset_fields_to_read = self.__get_dataset_fields()
 
         # Create dataset reader object.
         if self.dataset_reader_type == ImplementedDatasetReaders.DatasetWikiPassageQA:
-            dataset_reader = DatasetReaderWikiPassageQA(self.dataset_name, dataset_path, dataset_fields_to_read)
+            dataset_reader = DatasetReaderWikiPassageQA(self.dataset_name, dataset_path)
         elif self.dataset_reader_type == ImplementedDatasetReaders.DatasetQAChave:
-            dataset_reader = DatasetReaderQAChave(self.dataset_name, dataset_path, dataset_fields_to_read)
+            dataset_reader = DatasetReaderQAChave(self.dataset_name, dataset_path)
         else:
             logging.error("Dataset type " + self.dataset_reader_type + " not implemented")
             dataset_reader = None
@@ -64,14 +63,11 @@ class Resource:
             entries_from_dataset = dataset_reader.load_entries()
 
             if entries_from_dataset is not None:
-                # For each entry that was read from the dataset.
-                for index, row in entries_from_dataset.iterrows():
+                # For each entry that was read from the dataset
+                for entry in entries_from_dataset:
                     # Creates a resource entry.
                     resource_entry = ResourceEntry(self.field_mapping.keys())
-
-                    for field in entries_from_dataset.columns.values:
-                        # Add the value of the field in the newly created object.
-                        resource_entry.add_mapped_value(self.__field_key_from_value(field), row[field])
+                    resource_entry.append_dictionary_values(entry)
 
                     self.resource_entries.append(resource_entry)
             else:
