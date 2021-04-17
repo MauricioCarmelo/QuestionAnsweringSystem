@@ -16,13 +16,19 @@ if __name__ == '__main__':
     # simulation.run()
 
     # Tests and debug
-    resource0 = Resource('WikiPassageQADev', ImplementedDatasetReaders.DatasetWikiPassageQA)
+    resource0 = Resource('WikiPassageQA', ImplementedDatasetReaders.DatasetWikiPassageQA)
     resource0.build_resource_entries()
+
+    resource1 = Resource('QAChave', ImplementedDatasetReaders.DatasetQAChave)
+    resource1.build_resource_entries()
 
     task0 = TaskSimpleSplit(0)
 
     pipeline = Pipeline()
     pipeline.add_resource(resource0)
+    pipeline.add_resource(resource1)
     pipeline.add_task(task0)
 
     pipeline.run_tasks()
+
+    pass

@@ -2,13 +2,13 @@
   "datasets": [
     {
       "reader_type": "WikiPassageQA",
-      "name": "WikiPassageQADev",
+      "name": "WikiPassageQA",
       "path": "datasets/WikiPassageQA/dev.tsv"
     },
     {
-      "reader_type": "WikiPassageQA",
-      "name": "WikiPassageQATest",
-      "path": "datasets/WikiPassageQA/test.tsv"
+      "reader_type": "QAChave",
+      "name": "QAChave",
+      "path": "datasets/qa-chave/"
     }
   ],
   "pipeline":
@@ -19,18 +19,8 @@
           "task": "SimpleSplit",
           "datasets": [
             {
-              "name": "WikiPassageQADev",
+              "name": "WikiPassageQA",
               "input_fields": {
-                "dataset_question_text": "Question",
-                "dataset_question_id": "QID"
-              },
-              "evaluation_fields": {}
-            },
-            {
-              "name": "WikiPassageQATest",
-              "input_fields": {
-                "dataset_question_text": "",
-                "dataset_question_id": ""
               },
               "evaluation_fields": {}
             }
@@ -42,18 +32,9 @@
           "task": "DeepSearch",
           "datasets": [
             {
-              "name": "WikiPassageQADev",
+              "name": "WikiPassageQA",
               "input_fields": {
-                "dataset_question_id": "QID",
                 "query": "result_task0"
-              },
-              "evaluation_fields": {}
-            },
-            {
-              "name": "WikiPassageQATest",
-              "input_fields": {
-                "dataset_question_id": "",
-                "query": ""
               },
               "evaluation_fields": {}
             }

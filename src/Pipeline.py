@@ -17,9 +17,9 @@ class Pipeline:
     def run_tasks(self):
         try:
             for task in self.tasks:
-                fields_to_map = Settings.get_instance().get_mapped_fields(task.get_id())
+                fields_to_map_task_result = Settings.get_instance().get_mapped_fields(task.get_id())
 
-                # Get the datasets that are configured for the task
+                # Get the dataset reader types that are configured for the task
                 expected_datasets = set()
                 for expected_dataset_name in Settings.get_instance().get_expected_datasets(task.get_id()):
                     expected_datasets.add(Settings.get_instance().get_dataset_reader_type(expected_dataset_name))
@@ -33,7 +33,7 @@ class Pipeline:
                             task.validate_resource_entry(resource_entry)
                             task_result = task.run_technique(resource_entry)
                             # Insert the generated result in all fields of the resource entry that expect the value.
-                            for field in fields_to_map:
+                            for field in fields_to_map_task_result:
                                 resource_entry.add_mapped_value(field, task_result)
         except Exception as e:
             logging.error(str(e))

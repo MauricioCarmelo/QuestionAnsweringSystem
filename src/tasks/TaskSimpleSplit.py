@@ -7,8 +7,7 @@ from nltk.corpus import stopwords
 class TaskSimpleSplit(Task):
     @staticmethod
     def get_fields_for_technique():
-        return ['dataset_question_text',
-                'dataset_question_id']
+        return []
 
     def run_technique(self, resource_entry):
         try:
@@ -22,7 +21,7 @@ class TaskSimpleSplit(Task):
             nltk.download('stopwords')  # downloads only once
 
         stop_words = set(stopwords.words('english'))
-        question_text = resource_entry.get_value('dataset_question_text')
+        question_text = resource_entry.get_value('question')
 
         try:
             tokens = nltk.word_tokenize(question_text)  # generate tokens
