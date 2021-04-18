@@ -1,0 +1,24 @@
+question = {
+    "id": None,
+    "question": None,
+    "question_domain": None,
+    "answer_type": None,
+    "answers": [{
+                 "id": None, "answer": None,
+                 "documents": [{"id": None, "name": None, "document": None,
+                                "start_index_answer": None,  "end_index_answer": None}],
+                 "contexts": [{"id": None, "name": None, "context": None,
+                               "start_index_answer": None,  "end_index_answer": None}],
+                 "sentences": [{"id": None, "name": None, "sentence": None,
+                                "start_index_answer": None,  "end_index_answer": None}],
+                 "passages": [{"id": None, "name": None, "passage": None,
+                               "start_index_answer": None,  "end_index_answer": None}],
+                 "is_impossible": None,
+                 }],
+    "entities": [{"entity": None, "start": None, "end": None, "type": None, "subtype": None}],
+    "tokens": [],
+
+    # When the collection contains a predefined division of training, dev, and test data,
+    # this column determines which group this question belongs to. Possible values: NaN, train, dev, test.
+    "pre_evaluation_group": None,
+}
