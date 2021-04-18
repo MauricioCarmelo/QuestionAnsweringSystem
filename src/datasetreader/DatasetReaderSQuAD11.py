@@ -47,14 +47,14 @@ class DatasetReaderSQuAD11(DatasetReader):
         """
         data = json.load(file)
 
-        # contexts = {}  # ToDo: in the future, load the contexts as a dataset resource (issue *)
+        # contexts = {}  # ToDo: in the future, load the contexts as a dataset resource (issue 27)
 
         read_entries = []
         for d in data["data"]:
             for paragraph in d["paragraphs"]:
                 context = paragraph["context"]
-                # context_id = len(contexts)  # (issue *)
-                # contexts[context_id] = context  # (issue *)
+                # context_id = len(contexts)  # (issue 27)
+                # contexts[context_id] = context  # (issue 27)
                 for question in paragraph["qas"]:
                     entry = {}
                     entry["question"] = question["question"]
@@ -63,14 +63,14 @@ class DatasetReaderSQuAD11(DatasetReader):
                     _answers = []
                     for answer in question["answers"]:
                         _answer = {"answer": answer["text"],
-                                   "contexts": {"context": context,  # ToDo: use context ID (issue *)
+                                   "contexts": {"context": context,  # ToDo: use context ID (issue 27)
                                                 "start_index_answer": answer["answer_start"]},
                                    }
                         _answers.append(_answer)
                     if "plausible_answers" in question:
                         for answer in question["plausible_answers"]:
                             _answer = {"answer": answer["text"],
-                                       "contexts": {"context": context,  # ToDo: use context ID (issue *)
+                                       "contexts": {"context": context,  # ToDo: use context ID (issue 27)
                                                     "start_index_answer": answer["answer_start"]},
                                        }
                             _answers.append(_answer)
