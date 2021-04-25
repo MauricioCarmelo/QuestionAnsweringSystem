@@ -76,7 +76,7 @@ class DatasetReaderWikiPassageQA(DatasetReader):
                                 {
                                     "passage": row["RelevantPassages"]
                                 }
-                            ],
+                            ]
                         }
                     ],
                     "pre_evaluation_group": "test",
