@@ -1,15 +1,19 @@
-from src.tasks.Task import Task
+from src.tasks.Technique import Technique
 import nltk
 import logging
 from nltk.corpus import stopwords
 
 
-class TaskSimpleSplit(Task):
-    @staticmethod
-    def get_fields_for_technique():
-        return []
+class TechniqueNLTKTokenizerWithoutStopWords(Technique):
 
-    def run_technique(self, resource_entry):
+    def run(self, resource_entries):
+        results = []
+        for resource_entry in resource_entries:
+            result = self.__run_technique(resource_entry)
+            results.append(result)
+        return results
+
+    def __run_technique(self, resource_entry):
         try:
             nltk.data.find('tokenizers/punkt')
         except LookupError:

@@ -15,19 +15,26 @@
     {
       "tasks": [
         {
+          "id": 0,
           "name": "generate_query",
-          "task": "SimpleSplit",
+          "technique": "nltkTokenizerWithoutStopWords",
+          "predicts":
+          {
+            "predict_train": true,
+            "predict_test": true,
+            "predict_dev": true
+          },
           "datasets": [
             {
               "name": "WikiPassageQA",
               "input_fields": {
-              },
-              "evaluation_fields": {}
+              }
             }
           ],
           "result": "result_task0"
         },
         {
+          "id": 1,
           "name": "search_document",
           "task": "DeepSearch",
           "datasets": [
@@ -35,10 +42,14 @@
               "name": "WikiPassageQA",
               "input_fields": {
                 "query": "result_task0"
-              },
-              "evaluation_fields": {}
+              }
             }
-          ]
+          ],
+          "result": "result_task1",
+          "evaluation":
+          {
+            "evaluation_type": "cross-validation"
+          }
         }
       ]
     }
