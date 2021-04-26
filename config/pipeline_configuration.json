@@ -1,0 +1,69 @@
+{
+  "datasets": [
+    {
+      "reader_type": "WikiPassageQA",
+      "name": "WikiPassageQA",
+      "path": "datasets/WikiPassageQA/"
+    },
+    {
+      "reader_type": "QAChave",
+      "name": "QAChave",
+      "path": "datasets/qa-chave/"
+    }
+  ],
+  "pipeline":
+    {
+      "tasks": [
+        {
+          "id": 0,
+          "name": "generate_query",
+          "technique": "nltkTokenizerWithoutStopWords",
+          "predicts":
+          {
+            "predict_train": true,
+            "predict_dev": true,
+            "predict_test": true
+          },
+          "used_datasets": [
+            {
+              "name": "WikiPassageQA",
+              "input_fields": {
+              }
+            },
+            {
+              "name": "QAChave",
+              "input_fields": {
+              }
+            }
+          ],
+          "generated_result": "result_task_0"
+        },
+        {
+          "id": 1,
+          "name": "search_document",
+          "technique": "DeepSearch",
+          "predicts":
+          {
+            "predict_train": false,
+            "predict_dev": false,
+            "predict_test": true
+          },
+          "used_datasets": [
+            {
+              "name": "WikiPassageQA",
+              "input_fields": {
+                "query": "result_task_0"
+              }
+            },
+            {
+              "name": "QAChave",
+              "input_fields": {
+                "query": "result_task_0"
+              }
+            }
+          ],
+          "generated_result": "result_task_1"
+        }
+      ]
+    }
+}

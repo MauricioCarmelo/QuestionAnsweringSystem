@@ -12,7 +12,7 @@ class Simulation:
         for dataset_name in self.used_datasets:
             reader_type = Settings.get_instance().get_dataset_reader_type(dataset_name)
 
-            # Passar por cada um dos resources
+            # Passar por cada um dos resources;
             resource = Resource(dataset_name, reader_type)
             resource.build_resource_entries()
 

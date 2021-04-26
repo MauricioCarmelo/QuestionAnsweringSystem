@@ -23,9 +23,9 @@ class Pipeline:
     def __run_pipeline(self, train_set, dev_set, test_set, dataset_name):
 
         for task in self.tasks:
-            fields_to_map_task_result = Settings.get_instance().get_mapped_fields(task.get_id())
+            fields_to_map_task_result = Settings.get_instance().get_fields_to_map_task_result(task.get_id())
 
-            # Get the dataset reader types that are configured for the task
+            # Get the dataset names that are configured to be run by the task
             expected_datasets = Settings.get_instance().get_expected_datasets(task.get_id())
 
             if dataset_name in expected_datasets:
