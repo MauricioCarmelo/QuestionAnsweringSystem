@@ -13,72 +13,119 @@ class Settings:
     def get_instance(cls):
         if cls._instance is None:
             cls._instance = cls.__new__(cls)
-            with open("./config/step2_pipeline.json") as json_data_file:
+            with open("./config/pipeline_configuration.json") as json_data_file:
                 cls._configuration_file = json.load(json_data_file)
         return cls._instance
 
-    def is_valid(self):
-        return True
+    @classmethod
+    def get_all_dataset_names(cls):
+        dataset_names = []
+        datasets = cls._configuration_file['datasets']
+        for dataset in datasets:
+            dataset_names.append(dataset['name'])
+        return dataset_names
 
     @staticmethod
-    def get_all_dataset_names():
-        return ['WikiPassageQA', 'QAChave']
-
-    @staticmethod
-    def get_dataset_reader_type(dataset_name):
-        if dataset_name == 'WikiPassageQA':
+    def determine_reader_type(reader_type):
+        if reader_type == 'WikiPassageQA':
             return ImplementedDatasetReaders.DatasetWikiPassageQA
-        elif dataset_name == 'QAChave':
+        elif reader_type == 'QAChave':
             return ImplementedDatasetReaders.DatasetQAChave
-        return None
+        return ImplementedDatasetReaders.DatasetUnknown
 
-    @staticmethod
-    def get_dataset_path(dataset_name):
-        if dataset_name == 'WikiPassageQA':
-            return './datasets/WikiPassageQA/'
-        elif dataset_name == 'QAChave':
-            return './datasets/qa-chave'
-        else:
-            return ''
+    @classmethod
+    def get_dataset_reader_type(cls, dataset_name):
+        datasets = cls._configuration_file['datasets']
+        reader_type = ''
+        for dataset in datasets:
+            if dataset['name'] == dataset_name:
+                return cls.determine_reader_type(dataset['reader_type'])
 
-    @staticmethod
-    def get_field_mapping(dataset_name):
-        return {'query': 'result_task0',
-                'list_of_documents': 'result_task1'}
+        return cls.determine_reader_type('')
 
-    @staticmethod
-    def get_dataset_input_fields(dataset_name):
-        return None
+    @classmethod
+    def get_dataset_path(cls, dataset_name):
+        datasets = cls._configuration_file['datasets']
+        for dataset in datasets:
+            if dataset['name'] == dataset_name:
+                return dataset['path']
 
-    @staticmethod
-    def get_expected_datasets(task_id):
+        return ''
+
+    @classmethod
+    def get_field_mapping(cls, dataset_name):
+        field_mapping = {}
+        tasks = cls._configuration_file['pipeline']['tasks']
+        for task in tasks:
+            used_datasets = task['used_datasets']
+            for used_dataset in used_datasets:
+                if used_dataset['name'] == dataset_name:
+                    input_fields = used_dataset['input_fields']
+                    for field, mapped_value in input_fields.items():
+                        field_mapping[field] = mapped_value
+
+        return field_mapping
+
+    @classmethod
+    def get_expected_datasets(cls, task_id):
         """
         Returns all datasets that are configured to be parsed by the task.
         :return: List with all dataset names.
         """
-        if task_id == 0:
-            return ['WikiPassageQA', 'QAChave']
-        return None
+        datasets_used_in_task = set()
+        tasks = cls._configuration_file['pipeline']['tasks']
+        for task in tasks:
+            if task['id'] == task_id:
+                used_datasets = task['used_datasets']
+                for used_dataset in used_datasets:
+                    datasets_used_in_task.add(used_dataset['name'])
 
-    @staticmethod
-    def get_mapped_fields(task_id):
+        return list(datasets_used_in_task)
+
+    @classmethod
+    def get_fields_to_map_task_result(cls, task_id):
         """
         Get all field names where the task result is supposed to be mapped.
         :return: List with all field names.
         """
-        task_result_name = 'result_task' + str(task_id)
+        fields_to_map = set()
 
-        # this is a test
-        if task_result_name == 'result_task0':
-            return ['query']
-        elif task_result_name == 'result_task1':
-            return ['list_of_documents']
-        return []
+        tasks = cls._configuration_file['pipeline']['tasks']
+        for task in tasks:
+            used_datasets = task['used_datasets']
+            for used_dataset in used_datasets:
+                input_fields = used_dataset['input_fields']
+                for field, mapped_value in input_fields.items():
+                    try:
+                        mapped_task_id = int(mapped_value.split('_')[2])
+                    except (IndexError, ValueError):
+                        mapped_task_id = -1
 
-    @staticmethod
-    def get_set_usage(task_id):
-        return True, True, True
+                    if mapped_task_id == task_id:
+                        fields_to_map.add(field)
+        return list(fields_to_map)
 
-    @staticmethod
-    def get_used_technique(task_id):
-        return 'nltkTokenizerWithoutStopWords'
+    @classmethod
+    def get_set_usage(cls, task_id):
+        tasks = cls._configuration_file['pipeline']['tasks']
+        predict_train = False
+        predict_dev = False
+        predict_test = False
+        for task in tasks:
+            if task['id'] == task_id:
+                predicts = task['predicts']
+                if ('predict_train' in predicts) and (predicts['predict_train']):
+                    predict_train = True
+                if ('predict_dev' in predicts) and (predicts['predict_dev']):
+                    predict_dev = True
+                if ('predict_test' in predicts) and (predicts['predict_test']):
+                    predict_test = True
+
+        return predict_train, predict_dev, predict_test
+
+    @classmethod
+    def get_used_technique(cls, task_id):
+        tasks = cls._configuration_file['pipeline']['tasks']
+        for task in tasks:
+            if task['id'] == task_id:
+                return task['technique']
