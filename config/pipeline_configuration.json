@@ -40,6 +40,7 @@
         },
         {
           "id": 1,
+          "ignore": true,
           "name": "search_document",
           "technique": "DeepSearch",
           "predicts":

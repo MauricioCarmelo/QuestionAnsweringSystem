@@ -129,3 +129,22 @@ class Settings:
         for task in tasks:
             if task['id'] == task_id:
                 return task['technique']
+
+    @classmethod
+    def tasks_to_create(cls):
+        """
+        :return: list with the basic information to create the required tasks.
+        """
+        tasks_to_created = {}
+        tasks = cls._configuration_file['pipeline']['tasks']
+        for task in tasks:
+            if 'ignore' in task:
+                should_ignore = task['ignore']
+            else:
+                should_ignore = False
+            tasks_to_created[task['id']] = {
+                "name": task['name'],
+                "ignore": should_ignore
+            }
+
+        return tasks_to_created

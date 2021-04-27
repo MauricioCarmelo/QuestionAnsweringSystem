@@ -1,7 +1,8 @@
 from src.Settings import Settings
+from src.tasks.TaskUtils import TaskUtils
 from Resource import Resource
 from Pipeline import Pipeline
-from src.tasks.TaskGenerateQuery import TaskGenerateQuery
+
 
 
 class Simulation:
@@ -16,11 +17,13 @@ class Simulation:
             resource = Resource(dataset_name, reader_type)
             resource.build_resource_entries()
 
-            # Substituir pelo task builder e receber uma lista de tasks. Adicionar cada uma dessas tasks ao pipeline.
-            task0 = TaskGenerateQuery(0)
+            tasks = TaskUtils.build_tasks()
 
             pipeline = Pipeline()
             pipeline.set_resource(resource)
-            pipeline.add_task(task0)
+            for task in tasks:
+                if task is not None:
+                    pipeline.add_task(task)
+
             pipeline.run()
             pass
