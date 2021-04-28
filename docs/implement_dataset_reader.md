@@ -3,7 +3,7 @@
 If you want to read information from a dataset that is not yet supported by the application,
 it will be necessary to implement another **Dataset Reader**.
 
-1. Give your dataset a name.
+1. Give your dataset a name (this name will be used in the configuration file).
 
 2. Create a new enumeration type in `ImplementedDatasetReaders`. This enumeration will be linked
    to a name that allude to the dataset itself. We suggest that you insert a comment in the 
