@@ -7,4 +7,4 @@ class TaskGenerateQuery(Task):
         return []
 
     def run(self, resource_entries):
-        return self.__technique.run(resource_entries)
+        return self._technique.run(resource_entries)

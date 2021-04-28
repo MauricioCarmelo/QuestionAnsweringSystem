@@ -1,18 +1,19 @@
 import abc
-from src.tasks.Utils import Utils
 
 
 class Task(metaclass=abc.ABCMeta):
 
     def __init__(self, id):
         self._id = id
-        self.__technique = self.__build_technique()
+        self._technique = self.__build_technique()
+        pass
 
     def get_id(self):
         return self._id
 
     def __build_technique(self):
-        return Utils.build_technique(self._id)
+        from src.tasks.Utils import TaskUtils
+        return TaskUtils.build_technique(self._id)
 
     @staticmethod
     @abc.abstractmethod

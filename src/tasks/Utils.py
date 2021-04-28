@@ -3,7 +3,7 @@ from src.tasks.TaskGenerateQuery import TaskGenerateQuery
 from src.tasks.TechniqueNLTKTokenizerWithoutStopWords import TechniqueNLTKTokenizerWithoutStopWords
 
 
-class Utils:
+class TaskUtils:
     @staticmethod
     def build_tasks():
         created_tasks = []
@@ -16,7 +16,7 @@ class Utils:
             if 'ignore' in task_info and task_info['ignore']:
                 pass
             else:
-                created_task = Utils.__build_task(task_id, task_info)
+                created_task = TaskUtils.__build_task(task_id, task_info)
                 created_tasks.append(created_task)
 
         return created_tasks
