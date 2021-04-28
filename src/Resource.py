@@ -1,9 +1,7 @@
-from src.datasetreader.ImplementedDatasetReaders import ImplementedDatasetReaders
-from src.datasetreader.DatasetReaderWikiPassageQA import DatasetReaderWikiPassageQA
-from src.datasetreader.DatasetReaderQAChave import DatasetReaderQAChave
 from src.ResourceEntry import ResourceEntry
 from src.Settings import Settings
 from src.Generator import Generator
+from src.datasetreader.BuilderDatasetReader import BuilderDatasetReader
 import logging
 
 
@@ -50,31 +48,13 @@ class Resource:
 
         return dataset_specific_fields
 
-    def __build_dataset_reader(self):
-        """
-        Builds the dataset reader according to the dataset type.
-        :return: dataset_reader (DatasetReader).
-        """
-        dataset_path = Settings.get_instance().get_dataset_path(self.dataset_name)
-
-        # Create dataset reader object.
-        if self.dataset_reader_type == ImplementedDatasetReaders.DatasetWikiPassageQA:
-            dataset_reader = DatasetReaderWikiPassageQA(self.dataset_name, dataset_path)
-        elif self.dataset_reader_type == ImplementedDatasetReaders.DatasetQAChave:
-            dataset_reader = DatasetReaderQAChave(self.dataset_name, dataset_path)
-        else:
-            logging.error("Dataset type " + self.dataset_reader_type + " not implemented")
-            dataset_reader = None
-
-        return dataset_reader
-
     def build_resource_entries(self):
         """
         Builds resource entry objects according to the information that was read from the dataset.
         """
         resource_entries = []
 
-        dataset_reader = self.__build_dataset_reader()
+        dataset_reader = BuilderDatasetReader.build_dataset_reader(self.dataset_name, self.dataset_reader_type)
         if dataset_reader is not None:
             entries_from_dataset = dataset_reader.load_entries()
 

@@ -1,5 +1,6 @@
 from src.Settings import Settings
 from src.tasks.TaskGenerateQuery import TaskGenerateQuery
+from src.tasks.TechniqueNLTKTokenizerWithoutStopWords import TechniqueNLTKTokenizerWithoutStopWords
 
 
 class TaskUtils:
@@ -26,5 +27,12 @@ class TaskUtils:
 
         if name == 'generate_query':
             return TaskGenerateQuery(task_id)
+        else:
+            return None
+
+    @staticmethod
+    def build_technique(task_id):
+        if Settings.get_instance().get_used_technique(task_id) == 'nltkTokenizerWithoutStopWords':
+            return TechniqueNLTKTokenizerWithoutStopWords('nltkTokenizerWithoutStopWords')
         else:
             return None

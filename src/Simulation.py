@@ -1,8 +1,7 @@
 from src.Settings import Settings
-from src.tasks.TaskUtils import TaskUtils
+from src.tasks.Utils import TaskUtils
 from Resource import Resource
 from Pipeline import Pipeline
-
 
 
 class Simulation:

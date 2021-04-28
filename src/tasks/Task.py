@@ -1,22 +1,19 @@
 import abc
-from src.tasks.TechniqueNLTKTokenizerWithoutStopWords import TechniqueNLTKTokenizerWithoutStopWords
-from src.Settings import Settings
 
 
 class Task(metaclass=abc.ABCMeta):
 
     def __init__(self, id):
         self._id = id
-        self.__technique = None
+        self._technique = self.__build_technique()
+        pass
 
     def get_id(self):
         return self._id
 
-    def build_technique(self):
-        if Settings.get_instance().get_used_technique(self._id) == 'nltkTokenizerWithoutStopWords':
-            return TechniqueNLTKTokenizerWithoutStopWords('nltkTokenizerWithoutStopWords')
-        else:
-            return None
+    def __build_technique(self):
+        from src.tasks.Utils import TaskUtils
+        return TaskUtils.build_technique(self._id)
 
     @staticmethod
     @abc.abstractmethod
