@@ -1,5 +1,5 @@
 from src.Settings import Settings
-from src.tasks.TaskUtils import TaskUtils
+from src.tasks.Utils import Utils
 from Resource import Resource
 from Pipeline import Pipeline
 
@@ -20,7 +20,7 @@ class Simulation:
             pipeline.set_resource(resource)
 
             # Create and add the required tasks to the pipeline
-            tasks = TaskUtils.build_tasks()
+            tasks = Utils.build_tasks()
             for task in tasks:
                 if task is not None:
                     pipeline.add_task(task)
