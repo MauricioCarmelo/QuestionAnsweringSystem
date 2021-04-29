@@ -11,6 +11,10 @@ class DatasetReaderWikiPassageQA(DatasetReader):
             # Load train file
             raw_dataframe = pd.read_csv(self.path + '/train.tsv', sep='\t')
             for index, row in raw_dataframe.iterrows():
+                relevant_passages = row["RelevantPassages"]
+                relevant_passages = relevant_passages.split(',')
+                passages = [{"passage": x} for x in list(map(int, relevant_passages))]
+
                 row = {
                     "id": row["QID"],
                     "question": row["Question"],
@@ -22,11 +26,7 @@ class DatasetReaderWikiPassageQA(DatasetReader):
                                     "name": row["DocumentName"],
                                 }
                             ],
-                            "passages": [
-                                {
-                                    "passage": row["RelevantPassages"]
-                                }
-                            ],
+                            "passages": passages
                         }
                     ],
                     "pre_evaluation_group": "train",
@@ -36,6 +36,10 @@ class DatasetReaderWikiPassageQA(DatasetReader):
             # Load dev file
             raw_dataframe = pd.read_csv(self.path + '/dev.tsv', sep='\t')
             for index, row in raw_dataframe.iterrows():
+                relevant_passages = row["RelevantPassages"]
+                relevant_passages = relevant_passages.split(',')
+                passages = [{"passage": x} for x in list(map(int, relevant_passages))]
+
                 row = {
                     "id": row["QID"],
                     "question": row["Question"],
@@ -47,11 +51,7 @@ class DatasetReaderWikiPassageQA(DatasetReader):
                                     "name": row["DocumentName"],
                                 }
                             ],
-                            "passages": [
-                                {
-                                    "passage": row["RelevantPassages"]
-                                }
-                            ],
+                            "passages": passages
                         }
                     ],
                     "pre_evaluation_group": "dev",
@@ -61,6 +61,10 @@ class DatasetReaderWikiPassageQA(DatasetReader):
             # Load test file
             raw_dataframe = pd.read_csv(self.path + '/test.tsv', sep='\t')
             for index, row in raw_dataframe.iterrows():
+                relevant_passages = row["RelevantPassages"]
+                relevant_passages = relevant_passages.split(',')
+                passages = [{"passage": x} for x in list(map(int, relevant_passages))]
+
                 row = {
                     "id": row["QID"],
                     "question": row["Question"],
@@ -72,11 +76,7 @@ class DatasetReaderWikiPassageQA(DatasetReader):
                                     "name": row["DocumentName"],
                                 }
                             ],
-                            "passages": [
-                                {
-                                    "passage": row["RelevantPassages"]
-                                }
-                            ]
+                            "passages": passages
                         }
                     ],
                     "pre_evaluation_group": "test",
