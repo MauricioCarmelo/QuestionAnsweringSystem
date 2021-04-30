@@ -3,9 +3,9 @@
 
 ### Documentation
 
-* [Glossary](./docs/glossary.md)
+* [Glossary](./docs/glossary.md) (incomplete)
 
-* [Understand the pipeline configuration file](./docs/pipeline_configuration_file.md)
+* [Understand the pipeline configuration file](./docs/pipeline_configuration_file.md) (incomplete)
 
 ### How to contribute
 
