@@ -28,7 +28,10 @@ class TechniqueNLTKTokenizerWithoutStopWords(Technique):
         question_text = resource_entry.get_value('question')
 
         try:
-            tokens = nltk.word_tokenize(question_text)  # generate tokens
+            if (question_text is not None) and (len(question_text) > 0):
+                tokens = nltk.word_tokenize(question_text)  # generate tokens
+            else:
+                tokens = []
         except Exception as e:
             logging.error(str(e))
             raise

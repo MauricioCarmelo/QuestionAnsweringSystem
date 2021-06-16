@@ -1,4 +1,5 @@
 from src.Settings import Settings
+from src.evaluation.EvaluatorDocumentComparison import EvaluatorDocumentComparison
 
 
 class Pipeline:
@@ -19,6 +20,12 @@ class Pipeline:
                             self.resource.get_dev_entries(),
                             self.resource.get_test_entries(),
                             self.resource.get_dataset_name())
+
+    def build_evaluator(self, dataset_name, task_id, task_name, evaluator_type):
+        if evaluator_type == 'DocumentComparison':
+            return EvaluatorDocumentComparison(dataset_name, task_id, task_name)
+        else:
+            return None
 
     def __run_pipeline(self, train_set, dev_set, test_set, dataset_name):
 
@@ -58,3 +65,27 @@ class Pipeline:
                         # Insert the task result in the result entry for all fields that are expecting the value
                         for field in fields_to_map_task_result:
                             resource_entry.add_mapped_value(field, task_result)
+
+                # Evaluation steps
+                if task.should_evaluate():
+                    from src.Utils import EvaluatorUtils
+
+                    # Get the evaluation type and create the evaluator
+                    evaluator_type = Settings.get_instance().get_task_evaluator_type()
+                    evaluator = self.build_evaluator(dataset_name, task.get_id(), task.get_name(),
+                                                               evaluator_type)
+
+                    # Get which sets are supposed to be evaluated
+                    evaluate_train, evaluate_dev, evaluate_test = \
+                        Settings.get_instance().get_set_usage_for_evaluation(task.get_id())
+                    resource_entries_for_evaluation = []
+
+                    if evaluate_train:
+                        resource_entries_for_evaluation.extend(train_set)
+                    if evaluate_dev:
+                        resource_entries_for_evaluation.extend(dev_set)
+                    if evaluate_test:
+                        resource_entries_for_evaluation.extend(test_set)
+
+                    # Evaluate resource entries
+                    evaluator.evaluate_resource_entries(resource_entries_for_evaluation)
