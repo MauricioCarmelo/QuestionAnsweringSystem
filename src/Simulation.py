@@ -1,12 +1,36 @@
 from src.Settings import Settings
-from src.tasks.Utils import TaskUtils
 from Resource import Resource
 from Pipeline import Pipeline
+from src.tasks.TaskGenerateQuery import TaskGenerateQuery
 
 
 class Simulation:
     def __init__(self):
         self.used_datasets = Settings.get_instance().get_all_dataset_names()
+
+    def __build_task(self, task_id, task_info):
+        task_name = task_info['name']
+
+        if task_name == 'generate_query':
+            return TaskGenerateQuery(task_id, task_name)
+        else:
+            return None
+
+    def build_tasks(self):
+        created_tasks = []
+        tasks_to_create = Settings.get_instance().tasks_to_create()
+
+        ids = list(tasks_to_create.keys())
+        ids.sort()  # Sort id list to make sure the tasks are created in the correct sequence.
+        for task_id in ids:
+            task_parameters = tasks_to_create[task_id]
+            if 'ignore' in task_parameters and task_parameters['ignore']:
+                pass
+            else:
+                created_task = self.__build_task(task_id, task_parameters)
+                created_tasks.append(created_task)
+
+        return created_tasks
 
     def run(self):
         for dataset_name in self.used_datasets:
@@ -19,7 +43,7 @@ class Simulation:
             pipeline.set_resource(resource)
 
             # Create and add the required tasks to the pipeline
-            tasks = TaskUtils.build_tasks()
+            tasks = self.build_tasks()
             for task in tasks:
                 if task is not None:
                     pipeline.add_task(task)

@@ -63,6 +63,18 @@
               }
             }
           ],
+          "evaluation": {
+            "type": "DocumentComparison",
+            "should_evaluate": true,
+            "fields": {
+              "predicted_documents": "result_task_1"
+            },
+            "set_usage": {
+              "evaluate_train": true,
+              "evaluate_dev": true,
+              "evaluate_test": true
+            }
+          },
           "generated_result": "result_task_1"
         }
       ]

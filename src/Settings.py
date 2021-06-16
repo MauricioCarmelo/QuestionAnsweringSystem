@@ -124,6 +124,24 @@ class Settings:
         return predict_train, predict_dev, predict_test
 
     @classmethod
+    def get_set_usage_for_evaluation(cls, task_id):
+        tasks = cls._configuration_file['pipeline']['tasks']
+        evaluate_train = False
+        evaluate_dev = False
+        evaluate_test = False
+        for task in tasks:
+            if task['id'] == task_id:
+                set_usage = task['evaluation']['set_usage']
+                if ('evaluate_train' in set_usage) and (set_usage['evaluate_train']):
+                    evaluate_train = True
+                if ('evaluate_dev' in set_usage) and (set_usage['evaluate_dev']):
+                    evaluate_dev = True
+                if ('evaluate_test' in set_usage) and (set_usage['evaluate_test']):
+                    evaluate_test = True
+
+        return evaluate_train, evaluate_dev, evaluate_test
+
+    @classmethod
     def get_used_technique(cls, task_id):
         tasks = cls._configuration_file['pipeline']['tasks']
         for task in tasks:
@@ -148,3 +166,28 @@ class Settings:
             }
 
         return tasks_to_created
+
+    @classmethod
+    def get_task_evaluator_type(cls, task_id):
+        evaluator_type = ''
+        tasks = cls._configuration_file['pipeline']['tasks']
+        for task in tasks:
+            if task['id'] == task_id:
+                if 'evaluation' in task:
+                    evaluator_type = task['evaluation']['type']
+
+        return evaluator_type
+
+    @classmethod
+    def should_evaluate(cls, task_id):
+        tasks = cls._configuration_file['pipeline']['tasks']
+        for task in tasks:
+            if task['id'] == task_id:
+                if 'evaluation' in task:
+                    evaluation = task['evaluation']
+                    if 'should_evaluate' in evaluation and evaluation['should_evaluate']:
+                        return True
+                    else:
+                        return False
+        return False
+
