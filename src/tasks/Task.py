@@ -1,6 +1,7 @@
 import abc
 from src.Settings import Settings
 from src.tasks.TechniqueNLTKTokenizerWithoutStopWords import TechniqueNLTKTokenizerWithoutStopWords
+from src.tasks.TechniqueRuleBased import TechniqueRuleBased
 
 class Task(metaclass=abc.ABCMeta):
 
@@ -12,8 +13,12 @@ class Task(metaclass=abc.ABCMeta):
         pass
 
     def build_technique(self, task_id):
-        if Settings.get_instance().get_used_technique(task_id) == 'nltkTokenizerWithoutStopWords':
+        technique_name = Settings.get_instance().get_used_technique(task_id)
+
+        if technique_name == 'nltkTokenizerWithoutStopWords':
             return TechniqueNLTKTokenizerWithoutStopWords('nltkTokenizerWithoutStopWords')
+        elif technique_name == 'RuleBased':
+            return TechniqueRuleBased('RuleBased')
         else:
             return None
 

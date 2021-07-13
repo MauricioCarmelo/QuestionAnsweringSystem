@@ -3,12 +3,26 @@
     {
       "reader_type": "WikiPassageQA",
       "name": "WikiPassageQA",
-      "path": "datasets/WikiPassageQA/"
+      "path": "datasets/WikiPassageQA/",
+      "dataset_setup": {
+                "type": "fixed-split",
+                "folds_splitter": "shuffle-split",
+                "folds": 5,
+                "test_size": 0.4,
+                "random_state": 0
+      }
     },
     {
       "reader_type": "QAChave",
       "name": "QAChave",
-      "path": "datasets/qa-chave/"
+      "path": "datasets/qa-chave/",
+      "dataset_setup": {
+                "type": "fixed-split",
+                "folds_splitter": "shuffle-split",
+                "folds": 5,
+                "test_size": 0.4,
+                "random_state": 0
+      }
     }
   ],
   "pipeline":
@@ -26,13 +40,11 @@
           },
           "used_datasets": [
             {
-              "name": "WikiPassageQA",
-              "input_fields": {
-              }
-            },
-            {
               "name": "QAChave",
               "input_fields": {
+              },
+              "evaluation": {
+                "should_evaluate": false
               }
             }
           ],
@@ -40,9 +52,9 @@
         },
         {
           "id": 1,
-          "ignore": true,
-          "name": "search_document",
-          "technique": "DeepSearch",
+          "ignore": false,
+          "name": "answer_type_classification",
+          "technique": "RuleBased",
           "predicts":
           {
             "predict_train": false,
@@ -51,12 +63,6 @@
           },
           "used_datasets": [
             {
-              "name": "WikiPassageQA",
-              "input_fields": {
-                "query": "result_task_0"
-              }
-            },
-            {
               "name": "QAChave",
               "input_fields": {
                 "query": "result_task_0"
@@ -64,14 +70,22 @@
             }
           ],
           "evaluation": {
-            "type": "DocumentComparison",
+            "type": "ValueComparison",
             "should_evaluate": true,
             "fields": {
-              "predicted_documents": "result_task_1"
+              "answer_type": "result_task_1"
+            },
+            "metrics": {
+              "precision": {
+
+              },
+              "f1_score": {
+                "average": "macro"
+              }
             },
             "set_usage": {
-              "evaluate_train": true,
-              "evaluate_dev": true,
+              "evaluate_train": false,
+              "evaluate_dev": false,
               "evaluate_test": true
             }
           },

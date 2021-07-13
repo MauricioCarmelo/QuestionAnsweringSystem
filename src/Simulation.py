@@ -2,6 +2,7 @@ from src.Settings import Settings
 from Resource import Resource
 from Pipeline import Pipeline
 from src.tasks.TaskGenerateQuery import TaskGenerateQuery
+from src.tasks.TaskAnswerTypeClassification import TaskAnswerTypeClassification
 
 
 class Simulation:
@@ -13,6 +14,8 @@ class Simulation:
 
         if task_name == 'generate_query':
             return TaskGenerateQuery(task_id, task_name)
+        elif task_name == 'answer_type_classification':
+            return TaskAnswerTypeClassification(task_id, task_name)
         else:
             return None
 
@@ -39,6 +42,7 @@ class Simulation:
             # Create, build, and add the resource to the pipeline
             reader_type = Settings.get_instance().get_dataset_reader_type(dataset_name)
             resource = Resource(dataset_name, reader_type)
+
             resource.build_resource_entries()
             pipeline.set_resource(resource)
 

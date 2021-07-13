@@ -191,3 +191,34 @@ class Settings:
                         return False
         return False
 
+    @classmethod
+    def get_setup_settings(cls, dataset_name):
+        # tasks = cls._configuration_file['pipeline']['tasks']
+        datasets = cls._configuration_file['datasets']
+
+        evaluation_settings = {}
+        # Default values
+        evaluation_settings['type'] = ''
+        evaluation_settings['folds_splitter'] = ''
+        evaluation_settings['folds'] = 10
+        evaluation_settings['test_size'] = 0.3
+        evaluation_settings['random_state'] = 0
+
+        n_folds = -1
+        for dataset in datasets:
+            if dataset['name'] == dataset_name and 'dataset_setup' in dataset: # arrumar aqui
+                for key, value in dataset['dataset_setup'].items():
+                    evaluation_settings[key] = value
+                return evaluation_settings
+        return evaluation_settings
+
+    @classmethod
+    def get_evaluation_settings(cls, task_id):
+        evaluation_settings = None
+        tasks = cls._configuration_file['pipeline']['tasks']
+        for task in tasks:
+            if task['id'] == task_id:
+                if 'evaluation' in task:
+                    evaluation_settings = task['evaluation']
+
+        return evaluation_settings

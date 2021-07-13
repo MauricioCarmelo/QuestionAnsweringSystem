@@ -12,9 +12,10 @@ class Resource:
         self.field_mapping = Settings.get_instance().get_field_mapping(dataset_name)
 
         self.generator = Generator()
-        self.resource_entries_train = []
-        self.resource_entries_dev = []
-        self.resource_entries_test = []
+        self.resource_entries = []
+        # self.resource_entries_train = []
+        # self.resource_entries_dev = []
+        # self.resource_entries_test = []
 
     def get_dataset_reader_type(self):
         return self.dataset_reader_type
@@ -22,14 +23,16 @@ class Resource:
     def get_dataset_name(self):
         return self.dataset_name
 
-    def get_train_entries(self):
-        return self.resource_entries_train
-
-    def get_dev_entries(self):
-        return self.resource_entries_dev
-
-    def get_test_entries(self):
-        return self.resource_entries_test
+    def get_resource_entries(self):
+        return self.resource_entries
+    # def get_train_entries(self):
+    #     return self.resource_entries_train
+    #
+    # def get_dev_entries(self):
+    #     return self.resource_entries_dev
+    #
+    # def get_test_entries(self):
+    #     return self.resource_entries_test
 
     def __field_key_from_value(self, v):
         for key, value in self.field_mapping.items():
@@ -52,8 +55,6 @@ class Resource:
         """
         Builds resource entry objects according to the information that was read from the dataset.
         """
-        resource_entries = []
-
         dataset_reader = BuilderDatasetReader.build_dataset_reader(self.dataset_name, self.dataset_reader_type)
         if dataset_reader is not None:
             entries_from_dataset = dataset_reader.load_entries()
@@ -65,12 +66,13 @@ class Resource:
                     resource_entry = ResourceEntry(self.field_mapping.keys())
                     resource_entry.append_dictionary_values(entry)
 
-                    resource_entries.append(resource_entry)
+                    self.resource_entries.append(resource_entry)
 
-                    self.resource_entries_train, self.resource_entries_dev, \
-                        self.resource_entries_train = self.generator.get_train_dev_test_sets(resource_entries)
+                # self.resource_entries_train, self.resource_entries_dev, \
+                #     self.resource_entries_train = self.generator.get_train_dev_test_sets(resource_entries)
 
             else:
                 logging.error("No entry read from dataset")
+
         else:
             logging.error("Not able to create dataset reader")
