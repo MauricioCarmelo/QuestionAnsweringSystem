@@ -7,11 +7,9 @@ from src.tasks.TaskAnswerTypeClassification import TaskAnswerTypeClassification
 
 class Simulation:
     def __init__(self):
-        self.used_datasets = Settings.get_instance().get_all_dataset_names()
+        self.used_datasets = Settings.get_instance().get_all_used_dataset_names()
 
-    def __build_task(self, task_id, task_info):
-        task_name = task_info['name']
-
+    def __build_task(self, task_id, task_name):
         if task_name == 'generate_query':
             return TaskGenerateQuery(task_id, task_name)
         elif task_name == 'answer_type_classification':
@@ -30,7 +28,7 @@ class Simulation:
             if 'ignore' in task_parameters and task_parameters['ignore']:
                 pass
             else:
-                created_task = self.__build_task(task_id, task_parameters)
+                created_task = self.__build_task(task_id, task_parameters['name'])
                 created_tasks.append(created_task)
 
         return created_tasks
@@ -50,6 +48,8 @@ class Simulation:
             tasks = self.build_tasks()
             for task in tasks:
                 if task is not None:
+                    task_input_field_mapping = Settings.get_instance().get_task_input_field_mapping(task.get_id(), dataset_name)
+                    task.set_input_field_mapping(task_input_field_mapping)
                     pipeline.add_task(task)
 
             # Run the pipeline

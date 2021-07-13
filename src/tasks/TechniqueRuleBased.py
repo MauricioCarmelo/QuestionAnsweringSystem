@@ -11,4 +11,4 @@ class TechniqueRuleBased(Technique):
         return results
 
     def __run_technique(self, resource_entry):
-        pass
+        return 'resultado da técnica'

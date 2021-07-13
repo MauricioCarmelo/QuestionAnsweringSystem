@@ -25,6 +25,17 @@ class Settings:
             dataset_names.append(dataset['name'])
         return dataset_names
 
+    @classmethod
+    def get_all_used_dataset_names(cls):
+        used_dataset_names = set()
+        tasks = cls._configuration_file['pipeline']['tasks']
+        for task in tasks:
+            used_datasets = task['used_datasets']
+            for used_dataset in used_datasets:
+                used_dataset_names.add(used_dataset['name'])
+
+        return list(used_dataset_names)
+
     @staticmethod
     def determine_reader_type(reader_type):
         if reader_type == 'WikiPassageQA':
@@ -63,6 +74,30 @@ class Settings:
                     input_fields = used_dataset['input_fields']
                     for field, mapped_value in input_fields.items():
                         field_mapping[field] = mapped_value
+
+        return field_mapping
+
+    @classmethod
+    def get_tasks_result_field(cls):
+        result_fields = []
+        tasks = cls._configuration_file['pipeline']['tasks']
+        for task in tasks:
+            result_fields.append(task['generated_result'])
+
+        return result_fields
+
+    @classmethod
+    def get_task_input_field_mapping(cls, task_id, dataset_name):
+        field_mapping = {}
+        tasks = cls._configuration_file['pipeline']['tasks']
+        for task in tasks:
+            if task['id'] == task_id:
+                used_datasets = task['used_datasets']
+                for used_dataset in used_datasets:
+                    if used_dataset['name'] == dataset_name:
+                        input_fields = used_dataset['input_fields']
+                        for field, mapped_value in input_fields.items():
+                            field_mapping[field] = mapped_value
 
         return field_mapping
 

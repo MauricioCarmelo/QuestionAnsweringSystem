@@ -10,6 +10,7 @@ class Resource:
         self.dataset_name = dataset_name
         self.dataset_reader_type = dataset_reader_type
         self.field_mapping = Settings.get_instance().get_field_mapping(dataset_name)
+        self.result_fields = Settings.get_instance().get_tasks_result_field()
 
         self.generator = Generator()
         self.resource_entries = []
@@ -63,13 +64,10 @@ class Resource:
                 # For each entry that was read from the dataset
                 for entry in entries_from_dataset:
                     # Creates a resource entry.
-                    resource_entry = ResourceEntry(self.field_mapping.keys())
+                    resource_entry = ResourceEntry(self.result_fields)
                     resource_entry.append_dictionary_values(entry)
 
                     self.resource_entries.append(resource_entry)
-
-                # self.resource_entries_train, self.resource_entries_dev, \
-                #     self.resource_entries_train = self.generator.get_train_dev_test_sets(resource_entries)
 
             else:
                 logging.error("No entry read from dataset")
