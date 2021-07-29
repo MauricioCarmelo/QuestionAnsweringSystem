@@ -1,5 +1,6 @@
 import abc
 from src.Settings import Settings
+from sklearn.metrics import f1_score
 
 
 class Evaluator(metaclass=abc.ABCMeta):
@@ -7,8 +8,24 @@ class Evaluator(metaclass=abc.ABCMeta):
         self.dataset_name = dataset_name
         self.task_id = task_id
         self.task_name = task_name
-        self.field_mapping = Settings.get_instance().get_evaluation_field_mapping(task_id)
-
-    @abc.abstractmethod
-    def evaluate(self, resource_entries):
+        self.field_mapping, self.metrics = Settings.get_instance().get_evaluation_field_mapping_and_metrics(task_id)
         pass
+
+    def evaluate(self, resource_entries):
+        for correct_value_field_name, predicted_value_field_name in self.field_mapping.items():
+            correct_values = []
+            predicted_values = []
+            for resource_entry in resource_entries:
+                correct_values.append(resource_entry.get_value(correct_value_field_name))
+                predicted_values.append(resource_entry.get_value(predicted_value_field_name))
+
+            # TO-DO: Check if f1 score should be evaluated
+            self.evaluate_f1_score(correct_values, predicted_values)
+
+    def evaluate_f1_score(self, correct_values, predicted_values):
+        average = 'micro'
+        if 'f1_score' in self.metrics:
+            average = self.metrics['f1_score']['average']
+
+        score = f1_score(correct_values, predicted_values, average=average)
+        return score

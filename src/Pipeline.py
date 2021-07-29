@@ -1,6 +1,6 @@
 from src.Settings import Settings
-from src.evaluation.EvaluatorValueComparison import EvaluatorValueComparison
 from src.Generator import Generator
+from src.evaluation.Evaluator import Evaluator
 
 
 class Pipeline:
@@ -19,14 +19,14 @@ class Pipeline:
     def run(self):
         self.__run_pipeline(self.resource.get_dataset_name())
 
-    def build_evaluator(self, dataset_name, task_id, task_name):
+    # def build_evaluator(self, dataset_name, task_id, task_name):
         # Get the evaluation type and create the evaluator
-        evaluator_type = Settings.get_instance().get_evaluator_type_for_task(task_id)
+        # evaluator_type = Settings.get_instance().get_evaluator_type_for_task(task_id)
 
-        if evaluator_type == 'ValueComparison':
-            return EvaluatorValueComparison(dataset_name, task_id, task_name)
-        else:
-            return None
+        # if evaluator_type == 'ValueComparison':
+        #    return EvaluatorValueComparison(dataset_name, task_id, task_name)
+        # else:
+        #    return None
 
     def __run_pipeline(self, dataset_name):
         # Build a generator according to the configuration of the dataset in the current task.
@@ -77,15 +77,16 @@ class Pipeline:
 
                     # Evaluation steps
                     if task.should_evaluate():
-                        evaluator = self.build_evaluator(dataset_name, task.get_id(), task.get_name())
+                        # evaluator = self.build_evaluator(dataset_name, task.get_id(), task.get_name())
+                        evaluator = Evaluator(dataset_name, task.get_id(), task.get_name())
 
                         # Get which sets are supposed to be evaluated
                         evaluate_train, evaluate_dev, evaluate_test = \
                             Settings.get_instance().get_set_usage_for_evaluation(task.get_id())
 
-                        # if evaluate_train:
-                        #     evaluator.evaluate(train_set)
-                        # if evaluate_dev:
-                        #     evaluator.evaluate(dev_set)
-                        # if evaluate_test:
-                        #     evaluator.evaluate(test_set)
+                        if evaluate_train:
+                            evaluator.evaluate(train_set)
+                        if evaluate_dev:
+                            evaluator.evaluate(dev_set)
+                        if evaluate_test:
+                            evaluator.evaluate(test_set)

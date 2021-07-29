@@ -259,12 +259,16 @@ class Settings:
         return evaluation_settings
 
     @classmethod
-    def get_evaluation_field_mapping(cls, task_id):
+    def get_evaluation_field_mapping_and_metrics(cls, task_id):
         field_mapping = {}
+        metrics = {}
         evaluation_settings = cls.get_evaluation_settings(task_id)
         if evaluation_settings and 'fields' in evaluation_settings:
             evaluation_fields = evaluation_settings['fields']
             for field, mapped_value in evaluation_fields.items():
                 field_mapping[field] = mapped_value
 
-        return field_mapping
+        if evaluation_settings and 'metrics' in evaluation_settings:
+            metrics = evaluation_settings['metrics']
+
+        return field_mapping, metrics
