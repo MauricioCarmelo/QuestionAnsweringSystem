@@ -203,7 +203,7 @@ class Settings:
         return tasks_to_created
 
     @classmethod
-    def get_task_evaluator_type(cls, task_id):
+    def get_evaluator_type_for_task(cls, task_id):
         evaluator_type = ''
         tasks = cls._configuration_file['pipeline']['tasks']
         for task in tasks:
@@ -257,3 +257,14 @@ class Settings:
                     evaluation_settings = task['evaluation']
 
         return evaluation_settings
+
+    @classmethod
+    def get_evaluation_field_mapping(cls, task_id):
+        field_mapping = {}
+        evaluation_settings = cls.get_evaluation_settings(task_id)
+        if evaluation_settings and 'fields' in evaluation_settings:
+            evaluation_fields = evaluation_settings['fields']
+            for field, mapped_value in evaluation_fields.items():
+                field_mapping[field] = mapped_value
+
+        return field_mapping

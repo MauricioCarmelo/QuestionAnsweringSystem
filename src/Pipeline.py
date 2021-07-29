@@ -21,7 +21,7 @@ class Pipeline:
 
     def build_evaluator(self, dataset_name, task_id, task_name):
         # Get the evaluation type and create the evaluator
-        evaluator_type = Settings.get_instance().get_task_evaluator_type(task_id)
+        evaluator_type = Settings.get_instance().get_evaluator_type_for_task(task_id)
 
         if evaluator_type == 'ValueComparison':
             return EvaluatorValueComparison(dataset_name, task_id, task_name)
@@ -83,7 +83,6 @@ class Pipeline:
                         evaluate_train, evaluate_dev, evaluate_test = \
                             Settings.get_instance().get_set_usage_for_evaluation(task.get_id())
 
-                        # evaluator.evaluate()
                         # if evaluate_train:
                         #     evaluator.evaluate(train_set)
                         # if evaluate_dev:

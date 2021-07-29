@@ -1,4 +1,5 @@
 import abc
+from src.Settings import Settings
 
 
 class Evaluator(metaclass=abc.ABCMeta):
@@ -6,7 +7,8 @@ class Evaluator(metaclass=abc.ABCMeta):
         self.dataset_name = dataset_name
         self.task_id = task_id
         self.task_name = task_name
+        self.field_mapping = Settings.get_instance().get_evaluation_field_mapping(task_id)
 
     @abc.abstractmethod
-    def evaluate_resource_entries(self, resource_entries):
+    def evaluate(self, resource_entries):
         pass
