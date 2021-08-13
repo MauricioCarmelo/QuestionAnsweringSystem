@@ -1,6 +1,8 @@
 from src.Settings import Settings
 from src.Generator import Generator
 from src.evaluation.Evaluator import Evaluator
+import os.path
+from csv import DictWriter
 
 
 class Pipeline:
@@ -32,6 +34,7 @@ class Pipeline:
         # Build a generator according to the configuration of the dataset in the current task.
         generator = Generator.cycles_generator(self.resource.get_resource_entries(), dataset_name)
 
+        fold = 0
         for train_set, dev_set, test_set in generator:
 
             for task in self.tasks:
@@ -85,8 +88,43 @@ class Pipeline:
                             Settings.get_instance().get_set_usage_for_evaluation(task.get_id())
 
                         if evaluate_train:
-                            evaluator.evaluate(train_set)
+                            evaluation_result = evaluator.evaluate(train_set)
+                            if len(evaluation_result) > 0:
+                                self.save_evaluation_result(evaluation_result, task.get_id(), fold)
                         if evaluate_dev:
-                            evaluator.evaluate(dev_set)
+                            evaluation_result = evaluator.evaluate(dev_set)
+                            if len(evaluation_result) > 0:
+                                self.save_evaluation_result(evaluation_result, task.get_id(), fold)
                         if evaluate_test:
-                            evaluator.evaluate(test_set)
+                            evaluation_result = evaluator.evaluate(test_set)
+                            if len(evaluation_result) > 0:
+                                self.save_evaluation_result(evaluation_result, task.get_id(), fold)
+
+            # The next iteration refers to the next set of folds
+            fold = fold + 1
+
+    def save_evaluation_result(self, evaluation_result, task_id, fold):
+        # Check if evaluation.csv file exists
+        file_path = './results/evaluation.csv'
+        file_exists = os.path.isfile(file_path)
+
+        field_names = ['task_id', 'fold', 'result_type', 'value']
+        for key, value in evaluation_result.items():
+            row_dict = {
+                'task_id': task_id,
+                'fold': fold,
+                'result_type': key,
+                'value': value
+            }
+            self.append_dict_as_row(file_exists, file_path, row_dict, field_names)
+
+    def append_dict_as_row(self, file_exists, file_name, dict_of_elem, field_names):
+        # Open file in append mode
+        with open(file_name, 'a+', newline='') as write_obj:
+            # Create a writer object from csv module
+            dict_writer = DictWriter(write_obj, fieldnames=field_names)
+            # Write the header
+            if not file_exists:
+                dict_writer.writeheader()
+            # Insert a new row
+            dict_writer.writerow(dict_of_elem)
