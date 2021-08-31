@@ -1,7 +1,7 @@
 ## How to implement a dataset reader
 
-If you want to read information from a dataset that is not yet supported by the application,
-it will be necessary to implement another **Dataset Reader**.
+If you want to read information from a dataset that is not supported by the application,it will be necessary to 
+implement another **Dataset Reader**.
 
 1. Give your dataset a name (this name will be used in the configuration file).
 
@@ -9,14 +9,14 @@ it will be necessary to implement another **Dataset Reader**.
    to a name that allude to the dataset itself. We suggest that you insert a comment in the 
    `ImplementedDatasetReaders` file with the name created on step 1, in front of the created type.
    
-3. Create a class that extends `DatasetReader` and save it at `"./src/datasetreader"`. 
+3. Create a class that extends `DatasetReader` and save it at `"./src/datasetreader/"`. 
    
-4. Implement method `DatasetReader.load_entries()`. This method needs to return a `list()` of dictionaries,
+4. Implement method `DatasetReader.load_entries()`. This method needs to return a `list()` of *Python* dictionaries,
 where each dictionary represents a group of information in the dataset. The dictionary has the following
 format:
    
    ```python
-    information_group = {
+    record = {
        "id": None,
        "question": None,
        "question_domain": None,
