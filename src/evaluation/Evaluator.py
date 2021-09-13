@@ -1,5 +1,6 @@
 import abc
 from src.Settings import Settings
+from src.NewSettings import NewSettings
 from sklearn.metrics import f1_score
 
 
@@ -8,7 +9,7 @@ class Evaluator(metaclass=abc.ABCMeta):
         self.dataset_name = dataset_name
         self.task_id = task_id
         self.task_name = task_name
-        self.field_mapping, self.metrics = Settings.get_instance().get_evaluation_field_mapping_and_metrics(task_id)
+        self.field_mapping, self.metrics = NewSettings.get_instance().get_evaluation_field_mapping_and_metrics(task_id)
         pass
 
     def evaluate(self, resource_entries):

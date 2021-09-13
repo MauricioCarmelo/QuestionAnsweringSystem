@@ -1,0 +1,17 @@
+dataset:
+  name: "WikiPassageQA"
+  reader_type: "WikiPassageQA"
+  path: "datasets/WikiPassaQA/"
+  dataset_setup:
+    type: "cross-validation"
+    folds_splitter: "shuffle-split"
+    folds: 5
+    test_size: 0.4
+    random_state: 0
+---
+dataset:
+  name: "QAChave"
+  reader_type: "QAChave"
+  path: "datasets/qa-chave/"
+  dataset_setup:
+    type: "fixed-split"

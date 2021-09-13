@@ -1,10 +1,11 @@
 from src.Settings import Settings
+from src.NewSettings import NewSettings
 
 
 class Generator:
     @staticmethod
     def cycles_generator(resource_entries, dataset_name):
-        dataset_setup = Settings.get_setup_settings(dataset_name)
+        dataset_setup = NewSettings.get_setup_settings(dataset_name)
         try:
             if dataset_setup['type'] == "fixed-split":
                 return Generator.generator_fixed_split(resource_entries)
