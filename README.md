@@ -25,9 +25,9 @@ The results can be found inside folder `results/`.
 
 ### Documentation
 
-* [Glossary](./docs/glossary.md)
+* [Configuration file parameters](./docs/pipeline_configuration_file.md) (incomplete)
 
-* [Understand the pipeline configuration file](./docs/pipeline_configuration_file.md) (incomplete)
+* [Glossary](./docs/glossary.md)
 
 ### How to contribute
 
