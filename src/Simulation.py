@@ -1,5 +1,5 @@
 from src.Settings import Settings
-from src.NewSettings import NewSettings
+from src.SettingsYAML import SettingsYAML
 from Resource import Resource
 from Pipeline import Pipeline
 from src.tasks.TaskGenerateQuery import TaskGenerateQuery
@@ -8,7 +8,7 @@ from src.tasks.TaskAnswerTypeClassification import TaskAnswerTypeClassification
 
 class Simulation:
     def __init__(self):
-        self.used_datasets = NewSettings.get_instance().get_all_used_dataset_names()
+        self.used_datasets = SettingsYAML.get_instance().get_all_used_dataset_names()
 
     def __build_task(self, task_id, task_name):
         if task_name == 'generate_query':
@@ -20,7 +20,7 @@ class Simulation:
 
     def build_tasks(self):
         created_tasks = []
-        tasks_to_create = NewSettings.get_instance().tasks_to_create()
+        tasks_to_create = SettingsYAML.get_instance().tasks_to_create()
 
         ids = list(tasks_to_create.keys())
         ids.sort()  # Sort id list to make sure the tasks are created in the correct sequence.
@@ -39,7 +39,7 @@ class Simulation:
             pipeline = Pipeline()
 
             # Create, build, and add the resource to the pipeline
-            reader_type = NewSettings.get_instance().get_dataset_reader_type(dataset_name)
+            reader_type = SettingsYAML.get_instance().get_dataset_reader_type(dataset_name)
             resource = Resource(dataset_name, reader_type)
 
             resource.build_resource_entries()
@@ -49,7 +49,7 @@ class Simulation:
             tasks = self.build_tasks()
             for task in tasks:
                 if task is not None:
-                    task_input_field_mapping = NewSettings.get_instance().get_task_input_field_mapping(task.get_id(), dataset_name)
+                    task_input_field_mapping = SettingsYAML.get_instance().get_task_input_field_mapping(task.get_id(), dataset_name)
                     task.set_input_field_mapping(task_input_field_mapping)
                     pipeline.add_task(task)
 

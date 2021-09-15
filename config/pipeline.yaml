@@ -4,8 +4,8 @@ task:
   name: "generate_query"
   technique: "nltkTokenizerWithoutStopWords"
   predicts:
-    predict_train: true
-    predict_dev: true
+    predict_train: false
+    predict_dev: false
     predict_test: true
   used_datasets:
     - dataset:
@@ -28,10 +28,6 @@ task:
         name: "QAChave"
         input_fields:
           query: "result_task_0"
-    - dataset:
-        name: "WikiPassageQA"
-        input_fields:
-          query: "result_task_0"
   evaluation:
     should_evaluate: true
     type: "ValueComparison"
@@ -45,4 +41,4 @@ task:
       f1_score:
         average: "macro"
 
-  generated_result: "result_task_0"
+  generated_result: "result_task_1"

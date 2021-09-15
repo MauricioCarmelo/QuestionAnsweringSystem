@@ -1,5 +1,5 @@
 from src.Settings import Settings
-from src.NewSettings import NewSettings
+from src.SettingsYAML import SettingsYAML
 from src.Generator import Generator
 from src.evaluation.Evaluator import Evaluator
 import os.path
@@ -43,11 +43,11 @@ class Pipeline:
                 field_to_map_task_result = 'result_task_' + str(task.get_id())
 
                 # Get the dataset names that are configured to be run by the task
-                expected_datasets = NewSettings.get_instance().get_expected_datasets(task.get_id())
+                expected_datasets = SettingsYAML.get_instance().get_expected_datasets(task.get_id())
 
                 if dataset_name in expected_datasets:
                     predict_train, predict_dev, predict_test = \
-                        NewSettings.get_instance().get_set_usage(task.get_id())
+                        SettingsYAML.get_instance().get_set_usage(task.get_id())
 
                     task.train(train_set)
                     task.validate(dev_set)
@@ -86,7 +86,7 @@ class Pipeline:
 
                         # Get which sets are supposed to be evaluated
                         evaluate_train, evaluate_dev, evaluate_test = \
-                            NewSettings.get_instance().get_set_usage_for_evaluation(task.get_id())
+                            SettingsYAML.get_instance().get_set_usage_for_evaluation(task.get_id())
 
                         if evaluate_train:
                             evaluation_result = evaluator.evaluate(train_set)

@@ -1,6 +1,6 @@
 from src.ResourceEntry import ResourceEntry
 from src.Settings import Settings
-from src.NewSettings import NewSettings
+from src.SettingsYAML import SettingsYAML
 from src.Generator import Generator
 from src.datasetreader.BuilderDatasetReader import BuilderDatasetReader
 import logging
@@ -10,8 +10,8 @@ class Resource:
     def __init__(self, dataset_name, dataset_reader_type):
         self.dataset_name = dataset_name
         self.dataset_reader_type = dataset_reader_type
-        self.field_mapping = NewSettings.get_instance().get_field_mapping(dataset_name)
-        self.result_fields = NewSettings.get_instance().get_tasks_result_field()
+        self.field_mapping = SettingsYAML.get_instance().get_field_mapping(dataset_name)
+        self.result_fields = SettingsYAML.get_instance().get_tasks_result_field()
 
         self.generator = Generator()
         self.resource_entries = []

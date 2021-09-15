@@ -2,7 +2,7 @@ from src.datasetreader.ImplementedDatasetReaders import ImplementedDatasetReader
 import yaml
 
 
-class NewSettings:
+class SettingsYAML:
     _instance = None
     _configured_datasets = None
     _configured_tasks = None
