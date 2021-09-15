@@ -1,6 +1,28 @@
 ## Question Answering System
 ---
 
+### Installation
+
+Download the repository
+> `git clone https://github.com/MauricioCarmelo/QuestionAnsweringSystem.git`
+
+Setup environment
+> `cd QuestionAnsweringSystem;`  
+> `source ./setup.sh`
+
+Install **pip** requirements
+> `pip install -r requirements.txt`
+
+
+### Execution
+
+After making sure that files `config/dasetasets.yaml` and `config/pipeline.yaml` are configured
+correctly, you can execute a simulation by running
+
+`python3 ./src/main.py`
+
+The results can be found inside folder `results/`.
+
 ### Documentation
 
 * [Glossary](./docs/glossary.md)
