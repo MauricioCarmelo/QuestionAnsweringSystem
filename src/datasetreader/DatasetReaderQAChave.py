@@ -1,7 +1,6 @@
 from src.datasetreader.DatasetReader import DatasetReader
 import logging
 import xml.etree.ElementTree as ET
-import pandas as pd
 
 
 class DatasetReaderQAChave(DatasetReader):

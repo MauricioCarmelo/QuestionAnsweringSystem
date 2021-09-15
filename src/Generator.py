@@ -1,4 +1,3 @@
-from src.Settings import Settings
 from src.SettingsYAML import SettingsYAML
 
 

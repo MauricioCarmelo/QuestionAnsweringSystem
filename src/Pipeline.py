@@ -1,4 +1,3 @@
-from src.Settings import Settings
 from src.SettingsYAML import SettingsYAML
 from src.Generator import Generator
 from src.evaluation.Evaluator import Evaluator

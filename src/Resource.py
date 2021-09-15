@@ -1,5 +1,4 @@
 from src.ResourceEntry import ResourceEntry
-from src.Settings import Settings
 from src.SettingsYAML import SettingsYAML
 from src.Generator import Generator
 from src.datasetreader.BuilderDatasetReader import BuilderDatasetReader

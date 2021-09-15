@@ -1,5 +1,4 @@
 import abc
-from src.Settings import Settings
 from src.SettingsYAML import SettingsYAML
 from src.tasks.TechniqueNLTKTokenizerWithoutStopWords import TechniqueNLTKTokenizerWithoutStopWords
 from src.tasks.TechniqueRuleBased import TechniqueRuleBased

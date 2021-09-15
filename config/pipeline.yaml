@@ -40,5 +40,4 @@ task:
     metrics:
       f1_score:
         average: "macro"
-
   generated_result: "result_task_1"
