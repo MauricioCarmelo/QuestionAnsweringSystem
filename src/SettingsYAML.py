@@ -49,9 +49,9 @@ class SettingsYAML:
     @staticmethod
     def determine_reader_type(reader_type):
         if reader_type == 'WikiPassageQA':
-            return ImplementedDatasetReaders.DatasetWikiPassageQA
+            return ImplementedDatasetReaders.WikiPassageQA
         elif reader_type == 'QAChave':
-            return ImplementedDatasetReaders.DatasetQAChave
+            return ImplementedDatasetReaders.QAChave
         return ImplementedDatasetReaders.DatasetUnknown
 
     @classmethod

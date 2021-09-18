@@ -15,9 +15,9 @@ class BuilderDatasetReader:
         dataset_path = SettingsYAML.get_instance().get_dataset_path(dataset_name)
 
         # Create dataset reader object.
-        if dataset_reader_type == ImplementedDatasetReaders.DatasetWikiPassageQA:
+        if dataset_reader_type == ImplementedDatasetReaders.WikiPassageQA:
             dataset_reader = DatasetReaderWikiPassageQA(dataset_name, dataset_path)
-        elif dataset_reader_type == ImplementedDatasetReaders.DatasetQAChave:
+        elif dataset_reader_type == ImplementedDatasetReaders.QAChave:
             dataset_reader = DatasetReaderQAChave(dataset_name, dataset_path)
         else:
             dataset_reader = None
