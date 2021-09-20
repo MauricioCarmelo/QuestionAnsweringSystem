@@ -19,6 +19,6 @@ dataset:
 #  dataset_setup:
 #    type: "cross-validation"
 #    folds_splitter: "shuffle-split"
-#        folds: 5
-#        test_size: 0.4
-#        random_state: 0
+#    folds: 5
+#    test_size: 0.4
+#    random_state: 0
