@@ -48,6 +48,7 @@ class Pipeline:
                     predict_train, predict_dev, predict_test = \
                         SettingsYAML.get_instance().get_set_usage(task.get_id())
 
+                    task.setup()
                     task.train(train_set)
                     task.validate(dev_set)
 

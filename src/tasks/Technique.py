@@ -11,3 +11,12 @@ class Technique(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def run(self, resource_entries):
         pass
+
+    def setup(self):
+        pass
+
+    def train(self, train_set):
+        pass
+
+    def validate(self, dev_set):
+        pass

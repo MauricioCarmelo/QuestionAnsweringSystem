@@ -2,6 +2,7 @@ import abc
 from src.SettingsYAML import SettingsYAML
 from src.tasks.TechniqueNLTKTokenizerWithoutStopWords import TechniqueNLTKTokenizerWithoutStopWords
 from src.tasks.TechniqueRuleBased import TechniqueRuleBased
+from src.tasks.TechniqueLinearSVCQuestionClassification import TechniqueLinearSVCQuestionClassification
 
 
 class Task(metaclass=abc.ABCMeta):
@@ -21,6 +22,8 @@ class Task(metaclass=abc.ABCMeta):
             return TechniqueNLTKTokenizerWithoutStopWords('nltkTokenizerWithoutStopWords')
         elif technique_name == 'RuleBased':
             return TechniqueRuleBased('RuleBased')
+        elif technique_name == 'LinearSVCQuestionClassification':
+            return TechniqueLinearSVCQuestionClassification('LinearSVCQuestionClassification')
         else:
             return None
 
@@ -62,8 +65,11 @@ class Task(metaclass=abc.ABCMeta):
         """
         pass
 
+    def setup(self):
+        self._technique.setup()
+
     def train(self, train_set):
-        pass
+        self._technique.train(train_set)
 
     def validate(self, dev_set):
-        pass
+        self._technique.validate(dev_set)
