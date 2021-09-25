@@ -4,6 +4,6 @@
 
 All fields in the block are `required`, unless specified.
 
-* [Configuration fields](./docs/dataset_fields.md) of file `datasets.yaml`.
+* [Configuration fields](./dataset_fields.md) of file `datasets.yaml`.
 
-* [Configuration fields](./docs/pipeline_fields.md) of file `pipeline.yaml`.
+* [Configuration fields](./pipeline_fields.md) of file `pipeline.yaml`.
