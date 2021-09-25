@@ -1,5 +1,4 @@
 from src.datasetreader.DatasetReader import DatasetReader
-import logging
 import xml.etree.ElementTree as ET
 
 
@@ -39,5 +38,5 @@ class DatasetReaderQAChave(DatasetReader):
             return read_entries
 
         except Exception as e:
-            logging.error(str(e))
+            print(str(e))
             return None

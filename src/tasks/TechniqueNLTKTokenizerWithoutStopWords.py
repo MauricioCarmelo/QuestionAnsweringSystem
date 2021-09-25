@@ -1,6 +1,5 @@
 from src.tasks.Technique import Technique
 import nltk
-import logging
 from nltk.corpus import stopwords
 
 
@@ -33,7 +32,7 @@ class TechniqueNLTKTokenizerWithoutStopWords(Technique):
             else:
                 tokens = []
         except Exception as e:
-            logging.error(str(e))
+            print(str(e))
             raise
 
         filtered_sentence = [w for w in tokens if not w in stop_words]  # O(n)

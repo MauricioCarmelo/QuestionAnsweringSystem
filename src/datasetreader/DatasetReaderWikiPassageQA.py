@@ -1,5 +1,4 @@
 from src.datasetreader.DatasetReader import DatasetReader
-import logging
 import pandas as pd
 
 
@@ -86,5 +85,5 @@ class DatasetReaderWikiPassageQA(DatasetReader):
             return read_entries
 
         except Exception as e:
-            logging.error(str(e))
+            print(str(e))
             return None

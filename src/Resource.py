@@ -2,7 +2,6 @@ from src.ResourceEntry import ResourceEntry
 from src.SettingsYAML import SettingsYAML
 from src.Generator import Generator
 from src.datasetreader.BuilderDatasetReader import BuilderDatasetReader
-import logging
 
 
 class Resource:
@@ -68,9 +67,3 @@ class Resource:
                     resource_entry.append_dictionary_values(entry)
 
                     self.resource_entries.append(resource_entry)
-
-            else:
-                logging.error("No entry read from dataset")
-
-        else:
-            logging.error("Not able to create dataset reader")
