@@ -3,16 +3,32 @@
 
 ### Installation
 
-Download the repository
+#### Download the repository
+
 > `git clone https://github.com/MauricioCarmelo/QuestionAnsweringSystem.git`
 
-Setup environment
-> `cd QuestionAnsweringSystem;`  
-> `source ./setup.sh`
+#### Setup environment
 
-Install **pip** requirements
-> `pip install -r requirements.txt`
+* Ubuntu terminal
 
+```shell
+cd QuestionAnsweringSystem   
+pip install -r requirements.txt
+```
+
+Make sure variable PYTHONPATH has the absolute path to folder `QuestionAnsweringSystem`. Once inside folder 
+`QuestionAnsweringSystem`, run:
+
+```shell
+export PYTHONPATH="$PWD":$PYTHONPATH
+```
+
+* PyCharm
+
+On Run/Debug Configuration:  
+
+**Script path:** path to `<path_to_project>/QuestionAnsweringSystem/src/main.py`  
+**Working directory:** path to `<path_to_project>/QuestionAnsweringSystem/`
 
 ### Execution
 
