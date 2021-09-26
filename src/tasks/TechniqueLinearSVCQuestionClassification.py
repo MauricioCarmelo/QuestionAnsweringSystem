@@ -1,4 +1,4 @@
-from Technique import Technique
+from src.tasks.Technique import Technique
 from sklearn.svm import LinearSVC
 from sklearn.feature_extraction.text import TfidfVectorizer
 import numpy

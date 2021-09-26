@@ -1,8 +1,8 @@
 import abc
-from SettingsYAML import SettingsYAML
-from TechniqueNLTKTokenizerWithoutStopWords import TechniqueNLTKTokenizerWithoutStopWords
-from TechniqueRuleBased import TechniqueRuleBased
-from TechniqueLinearSVCQuestionClassification import TechniqueLinearSVCQuestionClassification
+from src.SettingsYAML import SettingsYAML
+from src.tasks.TechniqueNLTKTokenizerWithoutStopWords import TechniqueNLTKTokenizerWithoutStopWords
+from src.tasks.TechniqueRuleBased import TechniqueRuleBased
+from src.tasks.TechniqueLinearSVCQuestionClassification import TechniqueLinearSVCQuestionClassification
 
 
 class Task(metaclass=abc.ABCMeta):

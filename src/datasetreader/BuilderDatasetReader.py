@@ -1,7 +1,7 @@
-from SettingsYAML import SettingsYAML
-from ImplementedDatasetReaders import ImplementedDatasetReaders
-from DatasetReaderWikiPassageQA import DatasetReaderWikiPassageQA
-from DatasetReaderQAChave import DatasetReaderQAChave
+from src.SettingsYAML import SettingsYAML
+from src.datasetreader.ImplementedDatasetReaders import ImplementedDatasetReaders
+from src.datasetreader.DatasetReaderWikiPassageQA import DatasetReaderWikiPassageQA
+from src.datasetreader.DatasetReaderQAChave import DatasetReaderQAChave
 
 
 class BuilderDatasetReader:

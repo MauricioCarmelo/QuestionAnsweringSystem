@@ -1,5 +1,5 @@
 import abc
-from SettingsYAML import SettingsYAML
+from src.SettingsYAML import SettingsYAML
 from sklearn.metrics import f1_score
 
 

@@ -1,4 +1,4 @@
-from ImplementedDatasetReaders import ImplementedDatasetReaders
+from src.datasetreader.ImplementedDatasetReaders import ImplementedDatasetReaders
 import yaml
 
 

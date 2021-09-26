@@ -1,6 +1,6 @@
-from SettingsYAML import SettingsYAML
-from Generator import Generator
-from Evaluator import Evaluator
+from src.SettingsYAML import SettingsYAML
+from src.Generator import Generator
+from src.evaluation.Evaluator import Evaluator
 import os.path
 from csv import DictWriter
 

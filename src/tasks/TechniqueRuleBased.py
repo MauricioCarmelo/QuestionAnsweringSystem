@@ -1,4 +1,4 @@
-from Technique import Technique
+from src.tasks.Technique import Technique
 import nltk
 
 
