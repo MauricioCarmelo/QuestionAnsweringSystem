@@ -8,6 +8,16 @@
 >> **Description:** Used to configure a dataset that might be used in the simulation.
 >> 
 >> **Values:** Block with fields `name`, `reader_type`, `path`, `dataset_setup`.
+
+**Example of block *'dataset'* with its children. Note that the children are incomplete in this example** 
+```yaml
+dataset:
+  name: "QAChave"
+  reader_type: "QAChave"
+  path: "datasets/qa-chave/"
+  dataset_setup:
+    [block]
+```
 ---
 
 >**name**
@@ -50,7 +60,14 @@
 >> **Description:** Block used to configure the fold strategy that will be used during the load of a dataset resource.
 >> 
 >> **Values:** Block with fields `type`, `folds_splitter`, `folds`, `test_size`, `random_state`.
----
+```yaml
+  dataset_setup:
+    type: "cross-validation"
+    folds_splitter: "shuffle-split"
+    folds: 5
+    test_size: 0.4
+    random_state: 0
+```
 
 >**type**
 >> **Mandatory:** Yes 
@@ -60,8 +77,7 @@
 >> **Description:**
 >> 
 >> **Values:** `fixed-split` or `cross-validation`
----
-
+>
 >**folds_splitter**
 >> **Mandatory:** Yes, if `type` is `cross-validation`
 >> 
@@ -70,8 +86,7 @@
 >> **Description:**
 >> 
 >> **Values:** `shuffle-split`
----
-
+>
 >**folds**
 >> **Mandatory:** Yes, if `type` is equal to `cross-validation`
 >> 
@@ -80,8 +95,7 @@
 >> **Description:**
 >> 
 >> **Values:** Integer
----
-
+>
 >**test_size**
 >> **Mandatory:** Yes, if `type` is equal to `cross-validation`
 >> 
@@ -90,8 +104,7 @@
 >> **Description:**
 >>
 >> ** Values:** Float
----
-
+>
 >**random_state**
 >> **Mandatory:** Yes, if `type` is equal to `cross-validation`
 >> 
