@@ -1,8 +1,8 @@
-from src.SettingsYAML import SettingsYAML
+from SettingsYAML import SettingsYAML
 from Resource import Resource
 from Pipeline import Pipeline
-from src.tasks.TaskGenerateQuery import TaskGenerateQuery
-from src.tasks.TaskAnswerTypeClassification import TaskAnswerTypeClassification
+from TaskGenerateQuery import TaskGenerateQuery
+from TaskAnswerTypeClassification import TaskAnswerTypeClassification
 
 
 class Simulation:

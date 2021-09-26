@@ -1,4 +1,4 @@
-from src.SettingsYAML import SettingsYAML
+from SettingsYAML import SettingsYAML
 
 
 class Generator:

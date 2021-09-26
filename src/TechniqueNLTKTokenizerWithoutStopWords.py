@@ -1,4 +1,4 @@
-from src.tasks.Technique import Technique
+from Technique import Technique
 import nltk
 from nltk.corpus import stopwords
 

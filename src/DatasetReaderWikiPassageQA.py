@@ -1,4 +1,4 @@
-from src.datasetreader.DatasetReader import DatasetReader
+from DatasetReader import DatasetReader
 import pandas as pd
 
 

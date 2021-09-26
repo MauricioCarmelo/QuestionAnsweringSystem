@@ -1,7 +1,7 @@
-from src.ResourceEntry import ResourceEntry
-from src.SettingsYAML import SettingsYAML
-from src.Generator import Generator
-from src.datasetreader.BuilderDatasetReader import BuilderDatasetReader
+from ResourceEntry import ResourceEntry
+from SettingsYAML import SettingsYAML
+from Generator import Generator
+from BuilderDatasetReader import BuilderDatasetReader
 
 
 class Resource:

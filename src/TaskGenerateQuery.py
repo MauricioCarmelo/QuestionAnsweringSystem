@@ -1,4 +1,4 @@
-from src.tasks.Task import Task
+from Task import Task
 
 
 class TaskGenerateQuery(Task):

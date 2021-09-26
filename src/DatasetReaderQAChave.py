@@ -1,4 +1,4 @@
-from src.datasetreader.DatasetReader import DatasetReader
+from DatasetReader import DatasetReader
 import xml.etree.ElementTree as ET
 
 
@@ -15,12 +15,16 @@ class DatasetReaderQAChave(DatasetReader):
                 entry = {}
 
                 entry['question'] = pergunta.find('texto').text
+                if entry['question'] is None:
+                    continue
 
                 if "id_org" in pergunta.attrib:
                     entry["id"] = pergunta.attrib["id_org"]
 
                 if "tipo" in pergunta.attrib:
                     entry["answer_type"] = pergunta.attrib["tipo"]
+                    if entry['answer_type'] is None:
+                        continue
 
                 answers = []
                 for resposta in pergunta.findall("resposta"):
