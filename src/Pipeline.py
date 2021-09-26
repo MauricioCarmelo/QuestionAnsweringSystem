@@ -105,8 +105,13 @@ class Pipeline:
             fold = fold + 1
 
     def save_evaluation_result(self, evaluation_result, task_id, fold):
+        # Check if results folder exists and create it
+        folder_path = './results/'
+        if not os.path.exists(folder_path):
+            os.makedirs(folder_path)
+
         # Check if evaluation.csv file exists
-        file_path = './results/evaluation.csv'
+        file_path = folder_path + 'evaluation.csv'
         file_exists = os.path.isfile(file_path)
 
         field_names = ['task_id', 'fold', 'result_type', 'value']
