@@ -51,7 +51,7 @@ task:
     predict_dev: false
     predict_test: true
   used_datasets:
-    - dataset:
+    - used_dataset:
         name: "QAChave"
         input_fields:
   evaluation:

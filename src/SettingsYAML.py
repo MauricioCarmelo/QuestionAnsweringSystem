@@ -43,7 +43,7 @@ class SettingsYAML:
         for task in cls._configured_tasks:
             used_datasets = task['used_datasets']
             for used_dataset in used_datasets:
-                used_dataset_names.add(used_dataset['dataset']['name'])
+                used_dataset_names.add(used_dataset['used_dataset']['name'])
         return list(used_dataset_names)
 
     @staticmethod
@@ -74,8 +74,8 @@ class SettingsYAML:
         for task in cls._configured_tasks:
             used_datasets = task['used_datasets']
             for dataset_item in used_datasets:
-                if dataset_item['dataset']['name'] == dataset_name:
-                    input_fields = dataset_item['dataset']['input_fields']
+                if dataset_item['used_dataset']['name'] == dataset_name:
+                    input_fields = dataset_item['used_dataset']['input_fields']
                     if not input_fields is None:
                         for field, mapped_value in input_fields.items():
                             field_mapping[field] = mapped_value
@@ -100,8 +100,8 @@ class SettingsYAML:
             if task['id'] == task_id:
                 used_datasets = task['used_datasets']
                 for dataset_item in used_datasets:
-                    if dataset_item['dataset']['name'] == dataset_name:
-                        input_fields = dataset_item['dataset']['input_fields']
+                    if dataset_item['used_dataset']['name'] == dataset_name:
+                        input_fields = dataset_item['used_dataset']['input_fields']
                         if input_fields is not None:
                             for field, mapped_value in input_fields.items():
                                 field_mapping[field] = mapped_value
@@ -118,7 +118,7 @@ class SettingsYAML:
             if task['id'] == task_id:
                 used_datasets = task['used_datasets']
                 for dataset_item in used_datasets:
-                    datasets_used_in_task.add(dataset_item['dataset']['name'])
+                    datasets_used_in_task.add(dataset_item['used_dataset']['name'])
 
         return list(datasets_used_in_task)
 
