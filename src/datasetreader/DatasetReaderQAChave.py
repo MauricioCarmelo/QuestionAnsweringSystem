@@ -8,34 +8,34 @@ class DatasetReaderQAChave(DatasetReader):
             tree = ET.parse(self.path + '/questions.xml')
             root = tree.getroot()
 
-            read_entries = []
+            resource_entries = []
 
             for pergunta in root:
-                # Create an empty entry
-                entry = {}
+                resource_entry = self.new_resource_entry()
 
-                entry['question'] = pergunta.find('texto').text
+                resource_entry.set_question(pergunta.find('texto').text)
 
                 if "id_org" in pergunta.attrib:
-                    entry["id"] = pergunta.attrib["id_org"]
+                    resource_entry.set_id(pergunta.attrib["id_org"])
 
                 if "tipo" in pergunta.attrib:
-                    entry["answer_type"] = pergunta.attrib["tipo"]
+                    resource_entry.set_answer_type(pergunta.attrib["tipo"])
 
-                answers = []
                 for resposta in pergunta.findall("resposta"):
-                    answer = {}
-                    answer["answer"] = resposta.text
+                    answer_text = resposta.text
                     if "n" in resposta.attrib:
-                        answer["id"] = resposta.attrib["n"]
+                        answer_id = resposta.attrib["n"]
+                    else:
+                        answer_id = 0
+                    resource_entry.add_answer(answer_id, answer_text)
+
                     if "docid" in resposta.attrib:
-                        answer["documents"] = [{"id": resposta.attrib["docid"]}]
-                    answers.append(answer)
-                entry["answers"] = answers
+                        document_id = resposta.attrib["docid"]
+                        resource_entry.add_answer_document(answer_id, document_id)
 
-                read_entries.append(entry)
+                resource_entries.append(resource_entry)
 
-            return read_entries
+            return resource_entries
 
         except Exception as e:
             print(str(e))

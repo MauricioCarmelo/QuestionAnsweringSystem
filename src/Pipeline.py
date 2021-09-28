@@ -77,7 +77,7 @@ class Pipeline:
                             # Insert the task result in the result entry for all fields that are expecting the value
                             # for field in fields_to_map_task_result:
                             #     resource_entry.add_mapped_value(field, task_result)
-                            resource_entry.add_mapped_value(field_to_map_task_result, task_result)
+                            resource_entry.add_value(field_to_map_task_result, task_result)
 
                     # Evaluation steps
                     if task.should_evaluate():

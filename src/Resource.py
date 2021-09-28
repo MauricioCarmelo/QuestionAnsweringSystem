@@ -57,13 +57,8 @@ class Resource:
         """
         dataset_reader = BuilderDatasetReader.build_dataset_reader(self.dataset_name, self.dataset_reader_type)
         if dataset_reader is not None:
-            entries_from_dataset = dataset_reader.load_entries()
-
-            if entries_from_dataset is not None:
-                # For each entry that was read from the dataset
-                for entry in entries_from_dataset:
-                    # Creates a resource entry.
-                    resource_entry = ResourceEntry(self.result_fields)
-                    resource_entry.append_dictionary_values(entry)
-
-                    self.resource_entries.append(resource_entry)
+            entries = dataset_reader.load_entries()
+            for resource_entry in entries:
+                # Add result fields to the resource entry
+                resource_entry.add_fields(self.result_fields)
+                self.resource_entries.append(resource_entry)
