@@ -36,9 +36,6 @@ class ResourceEntry:
     def set_pre_evaluation_group(self, pre_evaluation_group):
         self._field_value_mapping['pre_evaluation_group'] = pre_evaluation_group
 
-    def get_field_value_mapping(self):
-        return self._field_value_mapping
-
     def add_entity(self, entity, start, end, type, subtype):
         new_entity = {}
         new_entity['entity'] = entity
@@ -89,6 +86,9 @@ class ResourceEntry:
         new_sentece['sentence'] = sentence
         answer = self._find_answer(answer_id)
         answer['sentences'].append(new_sentece)
+
+    def get_field_value_mapping(self):
+        return self._field_value_mapping
 
     def get_value(self, field):
         if field in self._field_value_mapping:
