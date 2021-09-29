@@ -33,7 +33,7 @@ class ResourceEntry:
     def set_evaluation_group(self, evaluation_group):
         self._field_value_mapping['evaluation_group'] = evaluation_group
 
-    def pre_set_evaluation_group(self, pre_evaluation_group):
+    def set_pre_evaluation_group(self, pre_evaluation_group):
         self._field_value_mapping['pre_evaluation_group'] = pre_evaluation_group
 
     def get_field_value_mapping(self):
@@ -51,7 +51,7 @@ class ResourceEntry:
     def add_token(self, token):
         self._field_value_mapping['tokens'].append(token)
 
-    def add_answer(self, id, answer):
+    def add_answer(self, id=0, answer=''):
         new_answer = {}
         new_answer['id'] = id
         new_answer['answer'] = answer
@@ -66,7 +66,7 @@ class ResourceEntry:
                 return answer
         return None
 
-    def add_answer_document(self, answer_id, doc_id=0, doc_name='', document=''):
+    def add_answer_document(self, answer_id=0, doc_id=0, doc_name='', document=''):
         new_doc = {}
         new_doc['id'] = doc_id
         new_doc['name'] = doc_name
@@ -74,19 +74,19 @@ class ResourceEntry:
         answer = self._find_answer(answer_id)
         answer['documents'].append(new_doc)
 
-    def add_answer_passages(self, answer_id,  passage_id, passage_name, passage):
+    def add_answer_passages(self, answer_id=0,  passage_id=0, passage_name='', passage=''):
         new_passage = {}
         new_passage['id'] = passage_id
         new_passage['name'] = passage_name
-        new_passage['document'] = passage
+        new_passage['passage'] = passage
         answer = self._find_answer(answer_id)
         answer['passages'].append(new_passage)
 
-    def add_answer_sentences(self, answer_id,  sentence_id, sentence_name, sentence):
+    def add_answer_sentences(self, answer_id=0,  sentence_id=0, sentence_name='', sentence=''):
         new_sentece = {}
         new_sentece['id'] = sentence_id
         new_sentece['name'] = sentence_name
-        new_sentece['document'] = sentence
+        new_sentece['sentence'] = sentence
         answer = self._find_answer(answer_id)
         answer['sentences'].append(new_sentece)
 
