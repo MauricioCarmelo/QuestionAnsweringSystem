@@ -7,7 +7,7 @@
 >>
 >> **Description:** Used to configure a dataset that might be used in the simulation.
 >> 
->> **Values:** Block with fields `name`, `reader_type`, `path`, `dataset_setup`.
+>> **Values:** Block with fields `name`, `reader_type`, `path`, `dataset_setup`, `filter`.
 
 **Example of block *'dataset'* with its children. Note that the children are incomplete in this example** 
 ```yaml
@@ -16,6 +16,8 @@ dataset:
   reader_type: "QAChave"
   path: "datasets/qa-chave/"
   dataset_setup:
+    [block]
+  filter:
     [block]
 ```
 ---
@@ -114,3 +116,19 @@ dataset:
 >> 
 >> **Values:**
 ---
+>**filter**
+>> **Mandatory:** No
+>> 
+>> **Parent:** dataset
+>>
+>> **Description:** Mapping used to filter values from the resource entry. It receives a mapping where the key
+>> is the name of the field in the resource entry and the value is a string. If there is a match between this string
+>> and the content in the resource entry, the entry is filtered out.
+>> 
+>> **Values:** Mapping of fields.
+
+**Example of block *'filter'***
+```yaml
+filter:
+  answer_type: 'X'
+```

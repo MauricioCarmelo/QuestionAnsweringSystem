@@ -248,3 +248,12 @@ class SettingsYAML:
 
         return field_mapping, metrics
 
+    @classmethod
+    def get_dataset_filter_fields(cls, dataset_name):
+        filter_mapping = {}
+        for dataset in cls._configured_datasets:
+            if dataset['name'] == dataset_name and 'filter' in dataset:
+                for key, value in dataset['filter'].items():
+                    filter_mapping[key] = value
+                return filter_mapping
+        return filter_mapping

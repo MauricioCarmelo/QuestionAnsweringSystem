@@ -58,7 +58,18 @@ class Resource:
         dataset_reader = BuilderDatasetReader.build_dataset_reader(self.dataset_name, self.dataset_reader_type)
         if dataset_reader is not None:
             entries = dataset_reader.load_entries()
+            self.filter(entries)
             for resource_entry in entries:
                 # Add result fields to the resource entry
                 resource_entry.add_fields(self.result_fields)
                 self.resource_entries.append(resource_entry)
+
+    def filter(self, entries):
+        filter_fields = SettingsYAML.get_dataset_filter_fields(self.dataset_name)
+        for i in range(len(entries)-1):
+            if i < len(entries):
+                resource_entry_value_mapping = entries[i].get_field_value_mapping()
+                for filter_field, value in filter_fields.items():
+                    if filter_field in resource_entry_value_mapping and value == resource_entry_value_mapping[filter_field]:
+                        entries.pop(i)
+                        break
