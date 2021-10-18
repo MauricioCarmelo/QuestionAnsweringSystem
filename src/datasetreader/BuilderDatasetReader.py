@@ -2,6 +2,7 @@ from src.SettingsYAML import SettingsYAML
 from src.datasetreader.ImplementedDatasetReaders import ImplementedDatasetReaders
 from src.datasetreader.DatasetReaderWikiPassageQA import DatasetReaderWikiPassageQA
 from src.datasetreader.DatasetReaderQAChave import DatasetReaderQAChave
+from src.datasetreader.DatasetReaderAntique import DatasetReaderAntique
 
 
 class BuilderDatasetReader:
@@ -19,6 +20,8 @@ class BuilderDatasetReader:
             dataset_reader = DatasetReaderWikiPassageQA(dataset_name, dataset_path)
         elif dataset_reader_type == ImplementedDatasetReaders.QAChave:
             dataset_reader = DatasetReaderQAChave(dataset_name, dataset_path)
+        elif dataset_reader_type == ImplementedDatasetReaders.Antique:
+            dataset_reader = DatasetReaderAntique(dataset_name, dataset_path)
         else:
             dataset_reader = None
 

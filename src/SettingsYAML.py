@@ -52,6 +52,8 @@ class SettingsYAML:
             return ImplementedDatasetReaders.WikiPassageQA
         elif reader_type == 'QAChave':
             return ImplementedDatasetReaders.QAChave
+        elif reader_type == 'Antique':
+            return ImplementedDatasetReaders.Antique
         return ImplementedDatasetReaders.DatasetUnknown
 
     @classmethod

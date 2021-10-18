@@ -1,6 +1,7 @@
 import abc
 from src.SettingsYAML import SettingsYAML
 from sklearn.metrics import f1_score
+from sklearn.metrics import fbeta_score
 
 
 class Evaluator(metaclass=abc.ABCMeta):
