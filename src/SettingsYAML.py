@@ -54,6 +54,8 @@ class SettingsYAML:
             return ImplementedDatasetReaders.QAChave
         elif reader_type == 'Antique':
             return ImplementedDatasetReaders.Antique
+        elif reader_type == 'UIUC':
+            return ImplementedDatasetReaders.UIUC
         return ImplementedDatasetReaders.DatasetUnknown
 
     @classmethod

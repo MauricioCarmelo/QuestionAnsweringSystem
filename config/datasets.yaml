@@ -1,9 +1,9 @@
-#dataset:
-#  name: "WikiPassageQA"
-#  reader_type: "WikiPassageQA"
-#  path: "datasets/WikiPassageQA/"
-#  dataset_setup:
-#    type: "fixed-split"
+dataset:
+  name: "UIUC"
+  reader_type: "UIUC"
+  path: "datasets/UIUC/UIUC_pt"
+  dataset_setup:
+    type: "fixed-split"
 #---
 #dataset:
 #  name: "QAChave"
@@ -15,15 +15,20 @@
 #    folds: 5
 #    test_size: 0.4
 #    random_state: 0
-#  filter:
-#    answer_type: 'X'
 #---
-dataset:
-  name: "Antique"
-  reader_type: "Antique"
-  path: "datasets/antique/"
-  dataset_setup:
-    type: "fixed-split"
+#dataset:
+#  name: "WikiPassageQA"
+#  reader_type: "WikiPassageQA"
+#  path: "datasets/WikiPassageQA/"
+#  dataset_setup:
+#    type: "fixed-split"
+#---
+#dataset:
+#  name: "Antique"
+#  reader_type: "Antique"
+#  path: "datasets/antique/"
+#  dataset_setup:
+#    type: "fixed-split"
 #---
 #dataset:
 #  name: "QAChave"

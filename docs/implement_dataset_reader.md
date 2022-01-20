@@ -42,6 +42,8 @@ that has the following format:
 5. Adjust method `BuilderDatasetReader.build_dataset_reader()` to return the correct class according to the 
 recently created `ImplementedDatasetReaders` enum type.
    
+6. Adjust method `Settings.determine_reader_type()` to return the reader type accordingly.
+   
 ### What to do while implementing method `DatasetReader.load_entries()`
 
 This method is responsible for reading all the information related to the dataset and stored it in different resource

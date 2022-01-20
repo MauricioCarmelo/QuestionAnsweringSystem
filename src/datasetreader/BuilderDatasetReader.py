@@ -3,6 +3,7 @@ from src.datasetreader.ImplementedDatasetReaders import ImplementedDatasetReader
 from src.datasetreader.DatasetReaderWikiPassageQA import DatasetReaderWikiPassageQA
 from src.datasetreader.DatasetReaderQAChave import DatasetReaderQAChave
 from src.datasetreader.DatasetReaderAntique import DatasetReaderAntique
+from src.datasetreader.DatasetReaderUIUC import DatasetReaderUIUC
 
 
 class BuilderDatasetReader:
@@ -22,6 +23,8 @@ class BuilderDatasetReader:
             dataset_reader = DatasetReaderQAChave(dataset_name, dataset_path)
         elif dataset_reader_type == ImplementedDatasetReaders.Antique:
             dataset_reader = DatasetReaderAntique(dataset_name, dataset_path)
+        elif dataset_reader_type == ImplementedDatasetReaders.UIUC:
+            dataset_reader = DatasetReaderUIUC(dataset_name, dataset_path)
         else:
             dataset_reader = None
 
