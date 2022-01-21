@@ -46,7 +46,7 @@ class Evaluator(metaclass=abc.ABCMeta):
 
     def evaluate_f1_score(self, correct_values, predicted_values):
         average = 'micro' # default
-        if 'average' in self.metrics['fi_score']:
+        if 'average' in self.metrics['f1_score']:
             average = self.metrics['f1_score']['average']
         score = f1_score(correct_values, predicted_values, average=average)
         return score

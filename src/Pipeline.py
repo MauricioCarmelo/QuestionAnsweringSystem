@@ -99,12 +99,12 @@ class Pipeline:
                         if evaluate_test:
                             evaluation_result = evaluator.evaluate(test_set)
                             if len(evaluation_result) > 0:
-                                self.save_evaluation_result(evaluation_result, task.get_id(), fold)
+                                self.save_evaluation_result(evaluation_result, task.get_id(), dataset_name, fold)
 
             # The next iteration refers to the next set of folds
             fold = fold + 1
 
-    def save_evaluation_result(self, evaluation_result, task_id, fold):
+    def save_evaluation_result(self, evaluation_result, task_id, dataset_name, fold):
         # Check if results folder exists and create it
         folder_path = './results/'
         if not os.path.exists(folder_path):
@@ -114,10 +114,11 @@ class Pipeline:
         file_path = folder_path + 'evaluation.csv'
         file_exists = os.path.isfile(file_path)
 
-        field_names = ['task_id', 'fold', 'result_type', 'value']
+        field_names = ['task_id', 'dataset_name', 'fold', 'result_type', 'value']
         for key, value in evaluation_result.items():
             row_dict = {
                 'task_id': task_id,
+                'dataset_name': dataset_name,
                 'fold': fold,
                 'result_type': key,
                 'value': value
