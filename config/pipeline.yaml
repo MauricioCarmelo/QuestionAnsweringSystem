@@ -46,6 +46,10 @@ task:
         average: "macro"
       precision:
         average: "macro"
+      accuracy:
+        -
+      recall:
+        average: "macro"
   generated_result: "result_task_1"
 #---
 #task:
