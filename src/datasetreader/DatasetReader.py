@@ -18,3 +18,6 @@ class DatasetReader:
         :return: dictionary with the values that were read from the dataset.
         """
         pass
+
+    def post_read_field(self, field_name):
+        pass

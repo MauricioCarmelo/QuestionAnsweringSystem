@@ -30,5 +30,7 @@ class TechniqueRuleBased(Technique):
             return "MEASURE"
         elif first_word == "como":
             return "MANNER"
+        elif first_word == "quando":
+            return "TIME"
         else:
             return "OTHER"

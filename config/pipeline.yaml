@@ -14,33 +14,40 @@ task:
         evaluation:
           should_evaluate: false
   generated_result: "result_task_0"
+---
+task:
+  id: 1
+  name: "answer_type_classification"
+  technique: "RuleBased"
+  predicts:
+    predict_train: false
+    predict_dev: false
+    predict_test: true
+  used_datasets:
+    - used_dataset:
+        name: "QAChave"
+        input_fields:
+          query: "result_task_0"
+    - used_dataset:
+        name: "UIUC"
+        input_fields:
+          query: "result_task_0"
+  evaluation:
+    should_evaluate: true
+    type: "ValueComparison"
+    set_usage:
+      evaluate_train: false
+      evaluate_dev: false
+      evaluate_test: true
+    fields:
+      answer_type: "result_task_1"
+    metrics:
+      f1_score:
+        average: "macro"
+      precision:
+        average: "macro"
+  generated_result: "result_task_1"
 #---
-#task:
-#  id: 1
-#  name: "answer_type_classification"
-#  technique: "RuleBased"
-#  predicts:
-#    predict_train: false
-#    predict_dev: false
-#    predict_test: true
-#  used_datasets:
-#    - used_dataset:
-#        name: "QAChave"
-#        input_fields:
-#          query: "result_task_0"
-#  evaluation:
-#    should_evaluate: true
-#    type: "ValueComparison"
-#    set_usage:
-#      evaluate_train: false
-#      evaluate_dev: false
-#      evaluate_test: true
-#    fields:
-#      answer_type: "result_task_1"
-#    metrics:
-#      f1_score:
-#        average: "macro"
-#  generated_result: "result_task_1"
 #task:
 #  id: 0
 #  ignore: false
