@@ -3,6 +3,7 @@ from src.SettingsYAML import SettingsYAML
 from src.tasks.TechniqueNLTKTokenizerWithoutStopWords import TechniqueNLTKTokenizerWithoutStopWords
 from src.tasks.TechniqueRuleBased import TechniqueRuleBased
 from src.tasks.TechniqueLinearSVCQuestionClassification import TechniqueLinearSVCQuestionClassification
+from src.tasks.TechniqueSVMLinearQuestionClassification import TechniqueSVMLinearQuestionClassification
 
 
 class Task(metaclass=abc.ABCMeta):
@@ -24,6 +25,8 @@ class Task(metaclass=abc.ABCMeta):
             return TechniqueRuleBased('RuleBased')
         elif technique_name == 'LinearSVCQuestionClassification':
             return TechniqueLinearSVCQuestionClassification('LinearSVCQuestionClassification')
+        elif technique_name == 'LinearSVMLinearQuestionClassification':
+            return TechniqueSVMLinearQuestionClassification('LinearSVMLinearQuestionClassification')
         else:
             return None
 
