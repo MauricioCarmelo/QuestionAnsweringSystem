@@ -13,6 +13,7 @@ class ResourceEntry:
         if fields:
             for field in fields:
                 self._field_value_mapping[field] = ''
+        self._field_value_mapping['indexed_article'] = ''
 
     def add_fields(self, fields):
         for field in fields:
@@ -35,6 +36,9 @@ class ResourceEntry:
 
     def set_pre_evaluation_group(self, pre_evaluation_group):
         self._field_value_mapping['pre_evaluation_group'] = pre_evaluation_group
+
+    def set_indexed_article(self, indexed_article):
+        self._field_value_mapping['indexed_article'] = indexed_article
 
     def add_entity(self, entity, start, end, type, subtype):
         new_entity = {}

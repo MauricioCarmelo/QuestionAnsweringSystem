@@ -56,6 +56,8 @@ class SettingsYAML:
             return ImplementedDatasetReaders.Antique
         elif reader_type == 'UIUC':
             return ImplementedDatasetReaders.UIUC
+        elif reader_type == 'SQUAD':
+            return ImplementedDatasetReaders.SQUAD
         return ImplementedDatasetReaders.DatasetUnknown
 
     @classmethod
