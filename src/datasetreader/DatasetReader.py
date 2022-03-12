@@ -19,5 +19,12 @@ class DatasetReader:
         """
         pass
 
+    def load_articles(self):
+        """
+        Load articles from dataset
+        :return: dictionary  linking article name or id to the text context
+        """
+        pass
+
     def post_read_field(self, field_name):
         pass

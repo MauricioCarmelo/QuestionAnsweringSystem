@@ -8,11 +8,13 @@ class Resource:
     def __init__(self, dataset_name, dataset_reader_type):
         self.dataset_name = dataset_name
         self.dataset_reader_type = dataset_reader_type
+        self.dataset_reader = None
         self.field_mapping = SettingsYAML.get_instance().get_field_mapping(dataset_name)
         self.result_fields = SettingsYAML.get_instance().get_tasks_result_field()
 
         self.generator = Generator()
         self.resource_entries = []
+        self.articles = {}
         # self.resource_entries_train = []
         # self.resource_entries_dev = []
         # self.resource_entries_test = []
@@ -25,6 +27,9 @@ class Resource:
 
     def get_resource_entries(self):
         return self.resource_entries
+
+    def get_articles(self):
+        return self.articles
     # def get_train_entries(self):
     #     return self.resource_entries_train
     #
@@ -55,14 +60,17 @@ class Resource:
         """
         Builds resource entry objects according to the information that was read from the dataset.
         """
-        dataset_reader = BuilderDatasetReader.build_dataset_reader(self.dataset_name, self.dataset_reader_type)
-        if dataset_reader is not None:
-            entries = dataset_reader.load_entries()
+        self.dataset_reader = BuilderDatasetReader.build_dataset_reader(self.dataset_name, self.dataset_reader_type)
+        if self.dataset_reader is not None:
+            entries = self.dataset_reader.load_entries()
             self.filter(entries)
             for resource_entry in entries:
                 # Add result fields to the resource entry
                 resource_entry.add_fields(self.result_fields)
                 self.resource_entries.append(resource_entry)
+
+    def load_articles(self):
+        self.articles = self.dataset_reader.load_articles()
 
     def filter(self, entries):
         filter_fields = SettingsYAML.get_dataset_filter_fields(self.dataset_name)

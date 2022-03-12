@@ -7,3 +7,4 @@ class ImplementedDatasetReaders(enum.Enum):
     QAChave = 3          # reader_type = QAChave
     Antique = 4          # reader_type = Antique
     UIUC = 5             # reader_type = UIUC
+    SQUAD = 6            # reader_type = SQUAD

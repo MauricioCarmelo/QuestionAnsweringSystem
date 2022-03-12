@@ -42,6 +42,7 @@ class Simulation:
             resource = Resource(dataset_name, reader_type)
 
             resource.build_resource_entries()
+            resource.load_articles()
             pipeline.set_resource(resource)
 
             # Create and add the required tasks to the pipeline
