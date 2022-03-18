@@ -15,7 +15,7 @@ class Technique(metaclass=abc.ABCMeta):
     def setup(self):
         pass
 
-    def train(self, train_set):
+    def train(self, train_set, dev_set, test_set, resource_articles):
         pass
 
     def validate(self, dev_set):

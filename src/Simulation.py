@@ -3,6 +3,7 @@ from Resource import Resource
 from Pipeline import Pipeline
 from src.tasks.TaskGenerateQuery import TaskGenerateQuery
 from src.tasks.TaskAnswerTypeClassification import TaskAnswerTypeClassification
+from src.tasks.TaskDocumentRetrieval import  TaskDocumentRetrieval
 
 
 class Simulation:
@@ -14,6 +15,8 @@ class Simulation:
             return TaskGenerateQuery(task_id, task_name)
         elif task_name == 'answer_type_classification':
             return TaskAnswerTypeClassification(task_id, task_name)
+        elif task_name == 'document_retrieval':
+            return TaskDocumentRetrieval(task_id, task_name)
         else:
             return None
 

@@ -108,4 +108,4 @@ class ResourceEntry:
 
     def append_dictionary_values(self, d):
         for key, value in d.items():
-            self.add_mapped_value(key, value)
+            self.add_value(key, value)
