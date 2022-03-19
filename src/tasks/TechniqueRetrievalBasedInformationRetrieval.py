@@ -14,11 +14,28 @@ class TechniqueRetrievalBasedInformationRetrieval(Technique):
         return results
 
     def __run_technique(self, resource_entry):
-        pass
+        if self.es_object is None:
+            self.es_object = Elasticsearch({'host': 'localhost', 'port': 9200, 'scheme': "http"})
+
+        question_text = resource_entry.get_value('question')
+
+        query = {
+            'query': {
+                'match': {
+                    'document_text': question_text
+                }
+            }
+        }
+
+        res = self.es_object.search(index=self.index_name, body=query, size=10)
+        # print(f'Question: {question_text}')
+        # print(f'Query Duration: {res["took"]} milliseconds')
+        # print('Title, Relevance Score:')
+        return [(hit['_source']['document_title'], hit['_score']) for hit in res['hits']['hits']]
 
     def setup(self):
-        self.es_object = Elasticsearch({'host': 'localhost', 'port': 9200, 'scheme': "http"})
-        index_config = {
+        self.index_name = 'squad-standard-index'
+        self.index_config = {
             "settings": {
                 "analysis": {
                     "analyzer": {
@@ -36,23 +53,18 @@ class TechniqueRetrievalBasedInformationRetrieval(Technique):
                 }
             }
         }
-
-        self.index_name = 'squad-standard-index'
-        if self.es_object.indices.exists(index=self.index_name):
-            self.es_object.indices.delete(index=self.index_name)
-        self.es_object.indices.create(index=self.index_name, body=index_config, ignore=400)
+        self.es_object = Elasticsearch({'host': 'localhost', 'port': 9200, 'scheme': "http"})
 
     def train(self, train_set, dev_set, test_set, resource_articles):
-        # for i, resource_entry in enumerate(train_set + dev_set):
+        if self.es_object.indices.exists(index=self.index_name):
+            self.es_object.indices.delete(index=self.index_name)
+        self.es_object.indices.create(index=self.index_name, body=self.index_config, ignore=400)
+
         i=0
         for article_title, article_text in resource_articles.items():
             index_status = self.es_object.index(index=self.index_name, id=i, body={'document_title': article_title,
                                                                                    'document_text': article_text})
             i = i+1
 
-
-        n_records = self.es_object.count(index=self.index_name)['count']
-        print(f'Succesfully loaded {n_records} into {self.index_name}')
-
     def validate(self, dev_set):
-        pass
+            pass
