@@ -4,6 +4,7 @@ from src.tasks.TechniqueNLTKTokenizerWithoutStopWords import TechniqueNLTKTokeni
 from src.tasks.TechniqueRuleBased import TechniqueRuleBased
 from src.tasks.TechniqueLinearSVCQuestionClassification import TechniqueLinearSVCQuestionClassification
 from src.tasks.TechniqueSVMLinearQuestionClassification import TechniqueSVMLinearQuestionClassification
+from src.tasks.TechniqueRetrievalBasedInformationRetrieval import TechniqueRetrievalBasedInformationRetrieval
 
 
 class Task(metaclass=abc.ABCMeta):
@@ -27,6 +28,8 @@ class Task(metaclass=abc.ABCMeta):
             return TechniqueLinearSVCQuestionClassification('LinearSVCQuestionClassification')
         elif technique_name == 'LinearSVMLinearQuestionClassification':
             return TechniqueSVMLinearQuestionClassification('LinearSVMLinearQuestionClassification')
+        elif technique_name == 'RetrievalBasedInformationRetrieval':
+            return TechniqueRetrievalBasedInformationRetrieval('RetrievalBasedInformationRetrieval')
         else:
             return None
 
@@ -71,8 +74,8 @@ class Task(metaclass=abc.ABCMeta):
     def setup(self):
         self._technique.setup()
 
-    def train(self, train_set):
-        self._technique.train(train_set)
+    def train(self, train_set, dev_set, test_set, resource_articles):
+        self._technique.train(train_set, dev_set, test_set, resource_articles)
 
     def validate(self, dev_set):
         self._technique.validate(dev_set)

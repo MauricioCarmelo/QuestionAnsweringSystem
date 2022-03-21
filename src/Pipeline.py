@@ -48,8 +48,10 @@ class Pipeline:
                     predict_train, predict_dev, predict_test = \
                         SettingsYAML.get_instance().get_set_usage(task.get_id())
 
+
+
                     task.setup()
-                    task.train(train_set)
+                    task.train(train_set, dev_set, test_set, self.resource.get_articles())
                     task.validate(dev_set)
 
                     if predict_train:
@@ -59,7 +61,7 @@ class Pipeline:
                             # Insert the task result in the result entry for all fields that are expecting the value
                             # for field in fields_to_map_task_result:
                             #     resource_entry.add_mapped_value(field, task_result)
-                            resource_entry.add_mapped_value(field_to_map_task_result, task_result)
+                            resource_entry.add_value(field_to_map_task_result, task_result)
 
                     if predict_dev:
                         # Run task for predict set
@@ -68,7 +70,7 @@ class Pipeline:
                             # Insert the task result in the result entry for all fields that are expecting the value
                             # for field in fields_to_map_task_result:
                             #     resource_entry.add_mapped_value(field, task_result)
-                            resource_entry.add_mapped_value(field_to_map_task_result, task_result)
+                            resource_entry.add_value(field_to_map_task_result, task_result)
 
                     if predict_test:
                         # Run task for test set

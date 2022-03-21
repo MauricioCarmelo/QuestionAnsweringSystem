@@ -23,7 +23,7 @@ class TechniqueSVMLinearQuestionClassification(Technique):
         self.model = svm.SVC(kernel='linear')  # Linear Kernel
         self.vectorizer = TfidfVectorizer()
 
-    def train(self, train_set):
+    def train(self, train_set, dev_set, test_set, resource_articles):
         question_texts = []
         answer_types = []
         for entry in train_set:
