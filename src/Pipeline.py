@@ -1,6 +1,7 @@
 from src.SettingsYAML import SettingsYAML
 from src.Generator import Generator
-from src.evaluation.Evaluator import Evaluator
+from src.evaluation.EvaluatorValueComparison import EvaluatorValueComparison
+from src.evaluation.EvaluatorDocumentRanking import EvaluatorDocumentRanking
 import os.path
 from csv import DictWriter
 
@@ -21,14 +22,16 @@ class Pipeline:
     def run(self):
         self.__run_pipeline(self.resource.get_dataset_name())
 
-    # def build_evaluator(self, dataset_name, task_id, task_name):
+    def build_evaluator(self, dataset_name, task_id, task_name):
         # Get the evaluation type and create the evaluator
-        # evaluator_type = Settings.get_instance().get_evaluator_type_for_task(task_id)
+        evaluator_type = SettingsYAML.get_instance().get_evaluator_type_for_task(task_id)
 
-        # if evaluator_type == 'ValueComparison':
-        #    return EvaluatorValueComparison(dataset_name, task_id, task_name)
-        # else:
-        #    return None
+        if evaluator_type == 'ValueComparison':
+           return EvaluatorValueComparison(dataset_name, task_id, task_name)
+        elif evaluator_type == 'DocumentRanking':
+           return EvaluatorDocumentRanking(dataset_name, task_id, task_name)
+        else:
+            return None
 
     def __run_pipeline(self, dataset_name):
         # Build a generator according to the configuration of the dataset in the current task.
@@ -47,8 +50,6 @@ class Pipeline:
                 if dataset_name in expected_datasets:
                     predict_train, predict_dev, predict_test = \
                         SettingsYAML.get_instance().get_set_usage(task.get_id())
-
-
 
                     task.setup()
                     task.train(train_set, dev_set, test_set, self.resource.get_articles())
@@ -83,8 +84,8 @@ class Pipeline:
 
                     # Evaluation steps
                     if task.should_evaluate():
-                        # evaluator = self.build_evaluator(dataset_name, task.get_id(), task.get_name())
-                        evaluator = Evaluator(dataset_name, task.get_id(), task.get_name())
+                        evaluator = self.build_evaluator(dataset_name, task.get_id(), task.get_name())
+                        # evaluator = Evaluator(dataset_name, task.get_id(), task.get_name())
 
                         # Get which sets are supposed to be evaluated
                         evaluate_train, evaluate_dev, evaluate_test = \

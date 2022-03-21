@@ -193,7 +193,12 @@ class SettingsYAML:
 
     @classmethod
     def get_evaluator_type_for_task(cls, task_id):
-        pass
+        for task in cls._configured_tasks:
+            if task['id'] == task_id:
+                if 'evaluation' in task:
+                    evaluation = task['evaluation']
+                    return evaluation['type']
+        return None
 
     @classmethod
     def should_evaluate(cls, task_id):
