@@ -27,9 +27,9 @@ class Pipeline:
         evaluator_type = SettingsYAML.get_instance().get_evaluator_type_for_task(task_id)
 
         if evaluator_type == 'ValueComparison':
-           return EvaluatorValueComparison(dataset_name, task_id, task_name)
+           return EvaluatorValueComparison(dataset_name, task_id, task_name, self.resource)
         elif evaluator_type == 'DocumentRanking':
-           return EvaluatorDocumentRanking(dataset_name, task_id, task_name)
+           return EvaluatorDocumentRanking(dataset_name, task_id, task_name, self.resource)
         else:
             return None
 
@@ -94,11 +94,11 @@ class Pipeline:
                         if evaluate_train:
                             evaluation_result = evaluator.evaluate(train_set)
                             if len(evaluation_result) > 0:
-                                self.save_evaluation_result(evaluation_result, task.get_id(), fold)
+                                self.save_evaluation_result(evaluation_result, task.get_id(), dataset_name, fold)
                         if evaluate_dev:
                             evaluation_result = evaluator.evaluate(dev_set)
                             if len(evaluation_result) > 0:
-                                self.save_evaluation_result(evaluation_result, task.get_id(), fold)
+                                self.save_evaluation_result(evaluation_result, task.get_id(), dataset_name, fold)
                         if evaluate_test:
                             evaluation_result = evaluator.evaluate(test_set)
                             if len(evaluation_result) > 0:
