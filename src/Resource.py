@@ -74,10 +74,13 @@ class Resource:
 
     def filter(self, entries):
         filter_fields = SettingsYAML.get_dataset_filter_fields(self.dataset_name)
-        for i in range(len(entries)-1):
+
+        i = 0
+        while i < len(entries):
             if i < len(entries):
                 resource_entry_value_mapping = entries[i].get_field_value_mapping()
                 for filter_field, value in filter_fields.items():
                     if filter_field in resource_entry_value_mapping and value == resource_entry_value_mapping[filter_field]:
                         entries.pop(i)
                         break
+                    i += 1
