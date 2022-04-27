@@ -37,4 +37,4 @@ class TechniqueNLTKTokenizerWithoutStopWords(Technique):
 
         filtered_sentence = [w for w in tokens if not w in stop_words]  # O(n)
 
-        return filtered_sentence
+        return ' '.join(filtered_sentence)
