@@ -26,7 +26,7 @@ class Task(metaclass=abc.ABCMeta):
             return TechniqueRuleBased('RuleBased')
         elif technique_name == 'LinearSVCQuestionClassification':
             return TechniqueLinearSVCQuestionClassification('LinearSVCQuestionClassification')
-        elif technique_name == 'LinearSVMLinearQuestionClassification':
+        elif technique_name == 'LinearSVMQuestionClassification':
             return TechniqueSVMLinearQuestionClassification('LinearSVMLinearQuestionClassification')
         elif technique_name == 'RetrievalBasedInformationRetrieval':
             return TechniqueRetrievalBasedInformationRetrieval('RetrievalBasedInformationRetrieval')
