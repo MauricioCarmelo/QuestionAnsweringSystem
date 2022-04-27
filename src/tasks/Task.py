@@ -14,7 +14,6 @@ class Task(metaclass=abc.ABCMeta):
         self._name = task_name
         self._technique = self._build_technique()
         self._should_evaluate = SettingsYAML.get_instance().should_evaluate(task_id)
-        self.input_field_mapping = None
         pass
 
     def build_technique(self, task_id):
@@ -40,7 +39,8 @@ class Task(metaclass=abc.ABCMeta):
         return self._name
 
     def set_input_field_mapping(self, input_field_mapping):
-        self.input_field_mapping = input_field_mapping
+        if self._technique:
+            self._technique.set_input_field_mapping(input_field_mapping)
 
     def should_evaluate(self):
         return self._should_evaluate
@@ -48,8 +48,10 @@ class Task(metaclass=abc.ABCMeta):
     def _build_technique(self):
         return self.build_technique(self._id)
 
-    def get_mapped_field_value(self, key):
-        return self.input_field_mapping[key]
+    def get_mapped_input_field_value(self, key):
+        if self._technique:
+            return self._technique.get_actual_field_name(key)
+        return None
 
     @staticmethod
     @abc.abstractmethod
