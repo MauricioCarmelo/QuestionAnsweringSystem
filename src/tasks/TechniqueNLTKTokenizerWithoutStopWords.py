@@ -23,7 +23,7 @@ class TechniqueNLTKTokenizerWithoutStopWords(Technique):
         except LookupError:
             nltk.download('stopwords')  # downloads only once
 
-        stop_words = set(stopwords.words('english'))
+        stop_words = set(stopwords.words('portuguese'))
         question_text = resource_entry.get_value('question')
 
         try:
